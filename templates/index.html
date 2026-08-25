@@ -17,6 +17,9 @@
 
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/libs/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/gitbrent/pptxgenjs@3.12.0/dist/pptxgen.min.js"></script>
 
     <!-- Clean Modern Stylesheet -->
     <link rel="stylesheet" href="/static/css/style.css">
@@ -72,7 +75,7 @@
             
             <!-- Page Intro Header -->
             <div class="page-intro">
-                <div class="intro-tag">נ’¡ Page 1: Platform Overview</div>
+                <div class="intro-tag">💡 Page 1: Platform Overview</div>
                 <div class="page-title-wrap">
                     <div class="page-title-icon-box icon-box-overview"><i class="fa-solid fa-server"></i></div>
                     <h2>Machine Learning Underwriting Platform</h2>
@@ -179,7 +182,7 @@
             
             <!-- Page Intro Header -->
             <div class="page-intro">
-                <div class="intro-tag">נ“ Page 2: Model Telemetry</div>
+                <div class="intro-tag">📊 Page 2: Model Telemetry</div>
                 <div class="page-title-wrap">
                     <div class="page-title-icon-box icon-box-model"><i class="fa-solid fa-network-wired"></i></div>
                     <h2>Model Architecture & Parameter Breakdown</h2>
@@ -254,7 +257,7 @@
             
             <!-- Page Intro Header -->
             <div class="page-intro">
-                <div class="intro-tag">נ¯ Page 3: Evaluation Hub</div>
+                <div class="intro-tag">🎯 Page 3: Evaluation Hub</div>
                 <div class="page-title-wrap">
                     <div class="page-title-icon-box icon-box-eval"><i class="fa-solid fa-users-viewfinder"></i></div>
                     <h2>Interactive Loan Applicant Evaluator</h2>
@@ -277,10 +280,10 @@
             <div class="preset-bar card" id="singlePresetBar">
                 <span class="preset-label">Sample Profiles:</span>
                 <div class="preset-group">
-                    <button class="btn-preset" onclick="loadPreset('prime')">נ¢ Prime Borrower</button>
-                    <button class="btn-preset" onclick="loadPreset('subprime')">נ”´ High Risk / Subprime</button>
-                    <button class="btn-preset" onclick="loadPreset('borderline')">נ¡ Borderline Case</button>
-                    <button class="btn-preset" onclick="loadPreset('high_leverage')">נ£ High Income / High Debt</button>
+                    <button class="btn-preset" onclick="loadPreset('prime')">🟢 Prime Borrower</button>
+                    <button class="btn-preset" onclick="loadPreset('subprime')">🔴 High Risk / Subprime</button>
+                    <button class="btn-preset" onclick="loadPreset('borderline')">🟡 Borderline Case</button>
+                    <button class="btn-preset" onclick="loadPreset('high_leverage')">🟣 High Income / High Debt</button>
                     <button class="btn-preset btn-clear" onclick="clearForm()">Reset</button>
                 </div>
             </div>
@@ -491,9 +494,17 @@
                 <div id="bulkResultsPanel" class="card" style="display: none; width: 100%; margin-top: 20px;">
                     <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
                         <h3 style="margin:0;">Evaluation Results (<span id="bulkValidCount">0</span> processed)</h3>
-                        <button class="btn btn-secondary btn-sm" onclick="switchPage('page-visual-analytics'); loadVisualAnalytics();">
-                            <i class="fa-solid fa-chart-column"></i> View Analytics
-                        </button>
+                        <div style="display: flex; gap: 8px;">
+                            <button class="btn btn-secondary btn-sm" onclick="exportData('excel')">
+                                <i class="fa-solid fa-file-excel"></i> Export Excel
+                            </button>
+                            <button class="btn btn-secondary btn-sm" onclick="exportData('ppt')">
+                                <i class="fa-solid fa-file-powerpoint"></i> Export PPT
+                            </button>
+                            <button class="btn btn-secondary btn-sm" onclick="switchPage('page-visual-analytics'); loadVisualAnalytics();">
+                                <i class="fa-solid fa-chart-column"></i> View Analytics
+                            </button>
+                        </div>
                     </div>
                     <div style="overflow-x: auto;">
                         <table style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 15px;">
@@ -523,7 +534,7 @@
 
             <!-- Page Header -->
             <div class="page-intro va-page-intro">
-                <div class="intro-tag">נ“ˆ Page 4: Visual Analytics</div>
+                <div class="intro-tag">📈 Page 4: Visual Analytics</div>
                 <div class="va-header-row">
                     <div>
                         <div class="page-title-wrap">
@@ -617,7 +628,7 @@
             
             <!-- Page Intro Header -->
             <div class="page-intro">
-                <div class="intro-tag">נ› ן¸ Page 4: Developer & Architecture</div>
+                <div class="intro-tag">🛠️ Page 5: Developer & Architecture</div>
                 <div class="page-title-wrap">
                     <div class="page-title-icon-box icon-box-dev"><i class="fa-solid fa-code"></i></div>
                     <h2>Pipeline Architecture & Model Download</h2>
