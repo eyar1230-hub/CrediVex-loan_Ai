@@ -1,0 +1,167 @@
+﻿/* ==========================================================================
+   VISUAL ANALYTICS PAGE  — visual_analytics.css
+   Uses existing Lendwell CSS variables from style.css
+   ========================================================================== */
+
+/* -- Page Header Row -------------------------------------------------------- */
+.va-page-intro { padding-bottom: 0; }
+
+.va-header-row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 6px;
+}
+
+.va-back-btn { white-space: nowrap; flex-shrink: 0; align-self: center; }
+
+/* -- KPI Strip -------------------------------------------------------------- */
+.va-kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+    margin-bottom: 24px;
+}
+
+.va-kpi-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: 16px 20px;
+    box-shadow: var(--shadow-card);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.va-kpi-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+.va-kpi-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    font-family: var(--font-display);
+    color: var(--text-heading);
+    line-height: 1.1;
+}
+
+.va-kpi-sub { font-size: 0.78rem; color: var(--text-muted); }
+
+/* -- Charts Grid ------------------------------------------------------------ */
+.va-charts-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.va-full-row { grid-template-columns: 1fr; }
+
+.va-chart-card {
+    padding: 22px 24px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.va-card-full { width: 100%; }
+
+/* -- Chart Header ----------------------------------------------------------- */
+.va-chart-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.va-chart-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-heading);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.va-chart-title i { color: var(--color-sapphire); }
+.va-chart-sub { font-size: 0.78rem; color: var(--text-muted); margin-top: 2px; }
+
+/* -- Legend ----------------------------------------------------------------- */
+.va-legend {
+    display: flex;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.va-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 5px;
+    flex-shrink: 0;
+}
+
+.va-dot-approved { background: #059669; }
+.va-dot-denied   { background: #dc2626; }
+
+/* -- Canvas Containers ------------------------------------------------------ */
+.va-canvas-wrap {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+.va-canvas-wide { height: 260px; }
+
+.va-canvas-wrap canvas {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* -- Empty State ------------------------------------------------------------ */
+.va-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 40px;
+    gap: 14px;
+}
+
+.va-empty-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--color-turquoise-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: var(--color-turquoise);
+    margin-bottom: 6px;
+}
+
+.va-empty-state h3 { font-size: 1.15rem; font-weight: 700; color: var(--text-heading); }
+.va-empty-state p  { font-size: 0.9rem; color: var(--text-muted); max-width: 380px; line-height: 1.55; }
+
+/* -- Responsive ------------------------------------------------------------- */
+@media (max-width: 860px) {
+    .va-charts-row      { grid-template-columns: 1fr; }
+    .va-header-row      { flex-direction: column; align-items: flex-start; }
+    .va-back-btn        { align-self: flex-start; }
+    .va-canvas-wrap     { height: 240px; }
+    .va-canvas-wide     { height: 220px; }
+}

@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Loan Underwriting & Risk Evaluation Platform powered by Support Vector Machines">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <title>Lendwell — AI Credit Underwriting Engine</title>
+
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Clean Modern Stylesheet -->
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- Visual Analytics Page Styles -->
+    <link rel="stylesheet" href="/static/css/visual_analytics.css">
+</head>
+<body>
+
+    <!-- PERSISTENT TOP NAVIGATION -->
+    <header class="navbar-wrapper">
+        <nav class="navbar">
+            <div class="nav-brand" onclick="switchPage('page-home')">
+                <img src="/static/logos/lendwell_logo.jpg" alt="Lendwell Logo" class="brand-logo" style="height: 90px; border-radius: 6px; margin-right: 12px;">
+                <div class="brand-name">Lendwell</div>
+                <span class="brand-tag">SVC Engine</span>
+            </div>
+
+            <ul class="nav-links">
+                <li><button class="nav-btn active" data-target="page-home">Overview</button></li>
+                <li><button class="nav-btn" data-target="page-model-data">Model Data</button></li>
+                <li><button class="nav-btn" data-target="page-evaluation">Evaluation Hub</button></li>
+                <li><button class="nav-btn" data-target="page-visual-analytics">Visual Analytics</button></li>
+                <li><button class="nav-btn" data-target="page-developer">Developer & SDK</button></li>
+            </ul>
+
+            <div class="nav-actions">
+                <div class="status-indicator">
+                    <span class="dot-online"></span>
+                    <span>Ready</span>
+                </div>
+                <button class="btn btn-primary btn-sm" onclick="switchPage('page-evaluation')">
+                    Evaluate Loan
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTAINER -->
+    <main class="main-container">
+
+        <!-- ================================================================= -->
+        <!-- PAGE 1: OVERVIEW                                                  -->
+        <!-- ================================================================= -->
+        <section id="page-home" class="page-section active">
+            
+            <!-- Page Intro Header -->
+            <div class="page-intro">
+                <div class="intro-tag">💡 Page 1: Platform Overview</div>
+                <h2>Machine Learning Underwriting Platform</h2>
+                <p>Welcome to Lendwell. This system uses a Support Vector Classifier (SVC) with an RBF kernel to evaluate loan applications, identify credit risk, and provide transparent probability scores.</p>
+            </div>
+
+            <!-- Hero Section -->
+            <div class="hero-grid">
+                <div class="hero-text-card card">
+                    <div class="badge-pill">Support Vector Machine • 89.8% ROC-AUC</div>
+                    <h1>Automated credit decisions powered by Support Vector AI</h1>
+                    <p class="hero-desc">
+                        Our model analyzes 6 core financial indicators — income, loan size, credit score, debt-to-income ratio, employment tenure, and delinquency history — to produce reliable, data-driven loan decisions.
+                    </p>
+                    <div class="hero-btn-row">
+                        <button class="btn btn-primary" onclick="switchPage('page-evaluation')">
+                            <i class="fa-solid fa-calculator"></i> Run Loan Simulation
+                        </button>
+                        <button class="btn btn-secondary" onclick="switchPage('page-model-data')">
+                            <i class="fa-solid fa-chart-line"></i> View Model Parameters
+                        </button>
+                    </div>
+                </div>
+
+                <div class="hero-stats-card card">
+                    <div class="stat-highlight">
+                        <span class="stat-label">Model Accuracy (ROC-AUC)</span>
+                        <span class="stat-big-number">89.8%</span>
+                        <span class="stat-sub">Validated against test portfolio</span>
+                    </div>
+                    <div class="quick-stats-list">
+                        <div class="q-stat-item">
+                            <span>Algorithm</span>
+                            <strong>SVC (RBF Kernel)</strong>
+                        </div>
+                        <div class="q-stat-item">
+                            <span>Regularization (C)</span>
+                            <strong>7.308</strong>
+                        </div>
+                        <div class="q-stat-item">
+                            <span>Kernel Gamma (γ)</span>
+                            <strong>0.800</strong>
+                        </div>
+                        <div class="q-stat-item">
+                            <span>Support Vectors</span>
+                            <strong>15,003</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3 Core Pillars -->
+            <div class="grid-3">
+                <div class="card pillar-card">
+                    <div class="pillar-icon bg-green"><i class="fa-solid fa-bezier-curve"></i></div>
+                    <h3>Non-Linear Decision Margin</h3>
+                    <p>Uses the RBF kernel to capture complex relationships between debt ratios and income that standard linear scoring misses.</p>
+                </div>
+
+                <div class="card pillar-card">
+                    <div class="pillar-icon bg-turquoise"><i class="fa-solid fa-chart-pie"></i></div>
+                    <h3>Calibrated Probabilities</h3>
+                    <p>Transforms raw hyperplane distance into smooth 0% to 100% confidence probabilities for clear, interpretable risk grading.</p>
+                </div>
+
+                <div class="card pillar-card">
+                    <div class="pillar-icon bg-orange"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3>Standardized Pipeline</h3>
+                    <p>Pre-processed with StandardScaler Z-score normalization to ensure balanced weight across all numeric feature distributions.</p>
+                </div>
+            </div>
+
+            <!-- How to Read Visuals Guide -->
+            <div class="card guide-card">
+                <div class="guide-title">
+                    <i class="fa-regular fa-compass"></i>
+                    <h3>How to interpret evaluation results</h3>
+                </div>
+                <div class="grid-3 guide-grid">
+                    <div class="guide-item">
+                        <span class="guide-number">01</span>
+                        <h4>Probability Dial</h4>
+                        <p>Confidence score: $\ge 50\%$ indicates loan approval, with $\ge 80\%$ representing prime, low-risk borrowers.</p>
+                    </div>
+                    <div class="guide-item">
+                        <span class="guide-number">02</span>
+                        <h4>Decision Margin</h4>
+                        <p>Distance from the separating hyperplane. Positive values indicate a safe margin; negative values denote elevated risk.</p>
+                    </div>
+                    <div class="guide-item">
+                        <span class="guide-number">03</span>
+                        <h4>Benchmark Comparison</h4>
+                        <p>Visualizes the applicant’s metrics against safe underwriting thresholds (100% baseline) to quickly pinpoint risk factors.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- PAGE 2: MODEL TELEMETRY                                           -->
+        <!-- ================================================================= -->
+        <section id="page-model-data" class="page-section">
+            
+            <!-- Page Intro Header -->
+            <div class="page-intro">
+                <div class="intro-tag">📊 Page 2: Model Telemetry</div>
+                <h2>Model Architecture & Parameter Breakdown</h2>
+                <p>This page dynamically pulls live telemetry from the backend API (<code>/api/metadata</code>, <code>/api/model-info</code>, and <code>/api/features</code>). Review the RBF kernel parameters, decision function formulation, and input feature constraints.</p>
+            </div>
+
+            <!-- Top 4 Parameter Cards -->
+            <div class="grid-4">
+                <div class="card param-card">
+                    <span class="param-title">ROC AUC Score</span>
+                    <div class="param-val text-green" id="cardRocAuc">0.8977</div>
+                    <span class="param-sub" id="cardRocAucPercent">89.77% Validation Accuracy</span>
+                </div>
+
+                <div class="card param-card">
+                    <span class="param-title">Kernel Family</span>
+                    <div class="param-val text-turquoise" id="cardKernelType">RBF (Radial)</div>
+                    <span class="param-sub" id="cardGamma">Gamma (γ): 0.800</span>
+                </div>
+
+                <div class="card param-card">
+                    <span class="param-title">Regularization (C)</span>
+                    <div class="param-val" id="cardCVal">7.308</div>
+                    <span class="param-sub">Tuned via RandomizedSearchCV</span>
+                </div>
+
+                <div class="card param-card">
+                    <span class="param-title">Support Vectors</span>
+                    <div class="param-val text-orange" id="cardTotalSV">15,003</div>
+                    <span class="param-sub" id="cardSVBreakdown">Class 0: 7,440 | Class 1: 7,563</span>
+                </div>
+            </div>
+
+            <!-- Decision Function Math Box -->
+            <div class="card math-card">
+                <div class="math-header">
+                    <h4><i class="fa-solid fa-square-root-variable"></i> RBF Kernel Decision Formulation</h4>
+                    <button class="btn btn-outline btn-xs" id="btnRefreshTelemetry">
+                        <i class="fa-solid fa-arrows-rotate"></i> Refresh Data
+                    </button>
+                </div>
+                <div class="math-box">
+                    <code>f(x) = sign(&sum; &alpha;<sub>i</sub> &bull; y<sub>i</sub> &bull; exp(-&gamma; ||x<sub>i</sub> - x||<sup>2</sup>) + b)</code>
+                </div>
+                <div class="math-meta-row">
+                    <span><strong>Intercept (b):</strong> <code id="mathIntercept">-0.344238</code></span>
+                    <span><strong>Gamma (γ):</strong> <code id="mathGamma">0.800</code></span>
+                    <span><strong>C Penalty:</strong> <code id="mathC">7.308</code></span>
+                    <span><strong>Scaler:</strong> <code>StandardScaler</code></span>
+                </div>
+            </div>
+
+            <!-- Feature Dictionary -->
+            <div class="section-title">
+                <h3>Input Feature Dictionary (6 Dimensions)</h3>
+                <p>Features required by the model pipeline with their expected ranges and units.</p>
+            </div>
+
+            <div class="grid-3" id="featureDictionaryContainer">
+                <div id="featureProgressContainer" class="progress-bar-container" style="display:none; margin-top:10px;">
+                    <div class="progress-bar" id="featureProgressBar" style="width:0%; background: linear-gradient(90deg, var(--color-sapphire), var(--color-turquoise)); height:8px; border-radius:4px;"></div>
+                </div>
+                <div id="featureErrorMsg" class="error-msg" style="display:none; color:#dc2626; margin-top:8px;">Failed to load feature schema.</div>
+            </div>
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- PAGE 3: EVALUATION HUB                                            -->
+        <!-- ================================================================= -->
+        <section id="page-evaluation" class="page-section">
+            
+            <!-- Page Intro Header -->
+            <div class="page-intro">
+                <div class="intro-tag">🎯 Page 3: Evaluation Hub</div>
+                <h2>Interactive Loan Applicant Evaluator</h2>
+                <p>Enter an applicant's financial attributes below or select a sample profile to evaluate loan approval in real time. The form validates all inputs before querying the model pipeline via <code>/api/predict</code>.</p>
+                <div style="margin-top: 14px;">
+                    <button class="btn btn-secondary" onclick="switchPage('page-visual-analytics'); loadVisualAnalytics();">
+                        <i class="fa-solid fa-chart-column"></i> View Data Analytics
+                    </button>
+                </div>
+            </div>
+
+            
+            <!-- Mode Toggle -->
+            <div style="margin-bottom: 20px; display: flex; gap: 10px;">
+                <button id="btnModeSingle" class="btn btn-primary" onclick="setEvalMode('single')">Single Entry</button>
+                <button id="btnModeBulk" class="btn btn-outline" onclick="setEvalMode('bulk')">Bulk Upload (CSV)</button>
+            </div>
+            <!-- Quick Preset Bar -->
+            <div class="preset-bar card" id="singlePresetBar">
+                <span class="preset-label">Sample Profiles:</span>
+                <div class="preset-group">
+                    <button class="btn-preset" onclick="loadPreset('prime')">🟢 Prime Borrower</button>
+                    <button class="btn-preset" onclick="loadPreset('subprime')">🔴 High Risk / Subprime</button>
+                    <button class="btn-preset" onclick="loadPreset('borderline')">🟡 Borderline Case</button>
+                    <button class="btn-preset" onclick="loadPreset('high_leverage')">🟣 High Income / High Debt</button>
+                    <button class="btn-preset btn-clear" onclick="clearForm()">Reset</button>
+                </div>
+            </div>
+
+            <!-- 2-Column Evaluator Layout -->
+            <div class="eval-layout" id="singleLayout">
+                
+                <!-- Left: Form -->
+                <div class="card form-card">
+                    <div class="card-header-clean">
+                        <h3>Applicant Financial Details</h3>
+                        <span class="badge-sub">6 Features Required</span>
+                    </div>
+
+                    <form id="loanForm" novalidate>
+                        
+                        <!-- 1. Annual Income -->
+                        <div class="form-group" id="group-annual_income">
+                            <div class="label-row">
+                                <label for="annual_income">Annual Income ($)</label>
+                                <span class="hint">Min $5,000</span>
+                            </div>
+                            <div class="input-wrap">
+                                <span class="prefix">$</span>
+                                <input type="number" id="annual_income" placeholder="e.g. 75000" min="5000" max="10000000" step="1000" required>
+                            </div>
+                            <span class="error-msg" id="err-annual_income">Must be at least $5,000.</span>
+                        </div>
+
+                        <!-- 2. Loan Amount -->
+                        <div class="form-group" id="group-loan_amount">
+                            <div class="label-row">
+                                <label for="loan_amount">Requested Loan Amount ($)</label>
+                                <span class="hint">Min $500</span>
+                            </div>
+                            <div class="input-wrap">
+                                <span class="prefix">$</span>
+                                <input type="number" id="loan_amount" placeholder="e.g. 15000" min="500" max="2000000" step="500" required>
+                            </div>
+                            <span class="error-msg" id="err-loan_amount">Must be at least $500.</span>
+                        </div>
+
+                        <!-- 3. Credit Score -->
+                        <div class="form-group" id="group-credit_score">
+                            <div class="label-row">
+                                <label for="credit_score">Credit Score (FICO)</label>
+                                <span class="hint">300 - 850</span>
+                            </div>
+                            <div class="input-wrap">
+                                <span class="prefix"><i class="fa-solid fa-gauge-simple"></i></span>
+                                <input type="number" id="credit_score" placeholder="e.g. 720" min="300" max="850" step="1" required>
+                            </div>
+                            <span class="error-msg" id="err-credit_score">Must be an integer between 300 and 850.</span>
+                        </div>
+
+                        <!-- 4. Debt to Income Ratio -->
+                        <div class="form-group" id="group-debt_to_income_ratio">
+                            <div class="label-row">
+                                <label for="debt_to_income_ratio">Debt-to-Income Ratio (DTI)</label>
+                                <span class="hint">0.0 to 1.0 (or %)</span>
+                            </div>
+                            <div class="input-wrap">
+                                <span class="prefix">%</span>
+                                <input type="number" id="debt_to_income_ratio" placeholder="e.g. 0.28 (28%)" min="0.0" max="1.0" step="0.01" required>
+                            </div>
+                            <span class="error-msg" id="err-debt_to_income_ratio">Enter a ratio between 0.0 and 1.0 (or 0% to 100%).</span>
+                        </div>
+
+                        <!-- 5. Years Employed -->
+                        <div class="form-group" id="group-years_employed">
+                            <div class="label-row">
+                                <label for="years_employed">Years Employed</label>
+                                <span class="hint">0 - 50 yrs</span>
+                            </div>
+                            <div class="input-wrap">
+                                <span class="prefix"><i class="fa-regular fa-clock"></i></span>
+                                <input type="number" id="years_employed" placeholder="e.g. 5" min="0" max="50" step="0.5" required>
+                            </div>
+                            <span class="error-msg" id="err-years_employed">Must be between 0 and 50 years.</span>
+                        </div>
+
+                        <!-- 6. Delinquencies -->
+                        <div class="form-group" id="group-delinquencies_last_2yrs">
+                            <div class="label-row">
+                                <label for="delinquencies_last_2yrs">Delinquencies (Last 2 Yrs)</label>
+                                <span class="hint">30+ days overdue</span>
+                            </div>
+                            <div class="input-wrap">
+                                <span class="prefix"><i class="fa-solid fa-triangle-exclamation"></i></span>
+                                <input type="number" id="delinquencies_last_2yrs" placeholder="e.g. 0" min="0" max="30" step="1" required>
+                            </div>
+                            <span class="error-msg" id="err-delinquencies_last_2yrs">Must be between 0 and 30.</span>
+                        </div>
+
+                        <button type="submit" id="btnSubmitPredict" class="btn btn-primary btn-block">
+                            <span class="btn-text">Evaluate Application</span>
+                            <span class="btn-spinner"><i class="fa-solid fa-circle-notch fa-spin"></i> Processing...</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Right: Results -->
+                <div class="results-col">
+                    
+                    <!-- Empty State -->
+                    <div id="resultsEmptyState" class="card empty-card">
+                        <div class="empty-icon"><i class="fa-solid fa-chart-pie"></i></div>
+                        <h3>Awaiting Application Data</h3>
+                        <p>Fill out the 6 financial attributes on the left or select a sample profile above to see the model prediction, approval probability, and risk breakdown.</p>
+                    </div>
+
+                    <!-- Active Results -->
+                    <div id="resultsActiveState" class="active-results" style="display: none;">
+                        
+                        <!-- Verdict Card -->
+                        <div class="card verdict-card" id="decisionBanner">
+                            <div class="verdict-main">
+                                <div class="verdict-icon" id="decisionIconBadge">
+                                    <i class="fa-solid fa-check" id="decisionIcon"></i>
+                                </div>
+                                <div>
+                                    <div class="verdict-sub">Evaluation Result</div>
+                                    <h2 class="verdict-title" id="decisionText">Approved</h2>
+                                    <span class="verdict-pill" id="decisionTierPill">Prime / Low Risk</span>
+                                </div>
+                            </div>
+
+                            <div class="verdict-metrics">
+                                <div class="v-metric">
+                                    <span class="v-label">Approval Probability</span>
+                                    <span class="v-value text-green" id="resApprovalProb">95.6%</span>
+                                </div>
+                                <div class="v-metric">
+                                    <span class="v-label">Default Risk</span>
+                                    <span class="v-value text-red" id="resRejectionProb">4.4%</span>
+                                </div>
+                                <div class="v-metric">
+                                    <span class="v-label">Decision Margin $f(x)$</span>
+                                    <span class="v-value" id="resMarginVal">+1.818</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 2 Charts Grid -->
+                        <div class="charts-row">
+                            <div class="card chart-box">
+                                <div class="chart-title">Approval vs Default Risk</div>
+                                <div class="chart-canvas-wrap">
+                                    <canvas id="probDoughnutChart"></canvas>
+                                </div>
+                                <div class="chart-legend-clean">
+                                    <span><strong class="text-green">■</strong> Approval: <span id="legendApproveVal">95.6%</span></span>
+                                    <span><strong class="text-red">■</strong> Rejection: <span id="legendRejectVal">4.4%</span></span>
+                                </div>
+                            </div>
+
+                            <div class="card chart-box">
+                                <div class="chart-title">Applicant vs Safe Benchmark</div>
+                                <div class="chart-canvas-wrap">
+                                    <canvas id="benchmarkBarChart"></canvas>
+                                </div>
+                                <div class="chart-note">100% = standard safe underwriting baseline</div>
+                            </div>
+                        </div>
+
+                        <!-- Diagnostic Checklist -->
+                        <div class="card checklist-card">
+                            <h4>Risk Diagnostic Checklist</h4>
+                            <div class="checklist-grid" id="riskChecklistContainer"></div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        
+            <!-- BULK UPLOAD LAYOUT -->
+            <div class="eval-layout" id="bulkLayout" style="display: none; flex-direction: column;">
+                <div class="card form-card" style="width: 100%; max-width: none; text-align: center; padding: 40px;">
+                    <h3>Bulk CSV/Excel Evaluation</h3>
+                    <p style="margin-bottom: 20px;">Upload a spreadsheet to evaluate multiple loan applications at once.</p>
+                    <div style="display: flex; justify-content: center; gap: 20px; margin-bottom: 30px;">
+                        <a href="/api/download-template" class="btn btn-secondary"><i class="fa-solid fa-download"></i> Download Template</a>
+                        <label class="btn btn-primary" style="cursor: pointer;">
+                            <i class="fa-solid fa-upload"></i> Upload CSV/Excel
+                            <input type="file" id="bulkFileInput" accept=".csv, .xls, .xlsx" style="display: none;" onchange="handleBulkUpload(event)">
+                        </label>
+                    </div>
+                    
+                    <div id="bulkLoading" style="display: none; width: 100%; margin-top: 20px; text-align: left;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-weight: 600; color: var(--color-sapphire);"><i class="fa-solid fa-gears"></i> Processing Data...</span>
+                            <span id="bulkProgressText" style="font-weight: bold; color: var(--color-sapphire);">0%</span>
+                        </div>
+                        <div style="width: 100%; background-color: #e2e8f0; border-radius: 999px; height: 12px; overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);">
+                            <div id="bulkProgressBar" style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--color-sapphire), var(--color-turquoise)); border-radius: 999px; transition: width 0.4s ease;"></div>
+                        </div>
+                        <p id="bulkProgressDetail" style="font-size: 0.85em; color: var(--text-muted); margin-top: 8px;">Initializing...</p>
+                    </div>
+
+                </div>
+                
+                <div id="bulkErrorPanel" class="card" style="display: none; border-left: 4px solid #FF3366; background: #fff5f5; width: 100%; margin-top: 20px;">
+                    <h4 style="color: #FF3366; margin-top: 0;"><i class="fa-solid fa-triangle-exclamation"></i> Validation Errors</h4>
+                    <p style="font-size: 0.9em; margin-bottom: 10px;">The following rows had errors and were skipped. Please correct them and re-upload.</p>
+                    <ul id="bulkErrorList" style="font-size: 0.85em; color: #555; text-align: left; padding-left: 20px;"></ul>
+                </div>
+
+                <div id="bulkResultsPanel" class="card" style="display: none; width: 100%; margin-top: 20px;">
+                    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
+                        <h3 style="margin:0;">Evaluation Results (<span id="bulkValidCount">0</span> processed)</h3>
+                        <button class="btn btn-secondary btn-sm" onclick="switchPage('page-visual-analytics'); loadVisualAnalytics();">
+                            <i class="fa-solid fa-chart-column"></i> View Analytics
+                        </button>
+                    </div>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 15px;">
+                            <thead>
+                                <tr style="border-bottom: 2px solid #eee;">
+                                    <th style="padding: 10px;">Row</th>
+                                    <th style="padding: 10px;">Income</th>
+                                    <th style="padding: 10px;">Loan Amt</th>
+                                    <th style="padding: 10px;">Verdict</th>
+                                    <th style="padding: 10px;">Approval %</th>
+                                    <th style="padding: 10px;">Risk Tier</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bulkResultsTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- PAGE 4: VISUAL ANALYTICS                                           -->
+        <!-- ================================================================= -->
+        <section id="page-visual-analytics" class="page-section">
+
+            <!-- Page Header -->
+            <div class="page-intro va-page-intro">
+                <div class="intro-tag">📈 Page 4: Visual Analytics</div>
+                <div class="va-header-row">
+                    <div>
+                        <h2>Bulk Loan Portfolio Analytics</h2>
+                        <p>Visual summaries of your uploaded bulk evaluation — analyzing SVC decision boundaries, employment tenure, and loan-amount risk distributions across the portfolio.</p>
+                    </div>
+                    <button class="btn btn-outline va-back-btn" onclick="switchPage('page-evaluation')">
+                        <i class="fa-solid fa-arrow-left"></i> Back to Evaluation Hub
+                    </button>
+                </div>
+            </div>
+
+            <!-- Empty State (shown before bulk data is loaded) -->
+            <div id="vaEmptyState" class="card va-empty-state">
+                <div class="va-empty-icon"><i class="fa-solid fa-chart-bar"></i></div>
+                <h3>No Portfolio Data Yet</h3>
+                <p>Upload a CSV/Excel file in the <strong>Evaluation Hub → Bulk Upload</strong> tab first, then return here to explore the analytics.</p>
+                <button class="btn btn-primary" onclick="switchPage('page-evaluation'); setEvalMode('bulk');">
+                    <i class="fa-solid fa-upload"></i> Go to Bulk Upload
+                </button>
+            </div>
+
+            <!-- Charts Dashboard (hidden until data loads) -->
+            <div id="vaChartsDashboard" style="display:none;">
+
+                <!-- Summary KPI Strip -->
+                <div class="va-kpi-strip" id="vaKpiStrip"></div>
+
+                <!-- Row 1: Scatter + Bar -->
+                <div class="va-charts-row">
+                    <!-- Scatter: DTI vs Credit Score -->
+                    <div class="card va-chart-card">
+                        <div class="va-chart-header">
+                            <div>
+                                <div class="va-chart-title"><i class="fa-solid fa-scatter-chart"></i> DTI vs Credit Score</div>
+                                <div class="va-chart-sub">SVC feature boundary — colour = model decision</div>
+                            </div>
+                            <div class="va-legend">
+                                <span class="va-dot va-dot-approved"></span> Approved
+                                <span class="va-dot va-dot-denied" style="margin-left:12px;"></span> Denied
+                            </div>
+                        </div>
+                        <div class="va-canvas-wrap">
+                            <canvas id="vaScatterChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Bar: Approval Rate by Years Employed -->
+                    <div class="card va-chart-card">
+                        <div class="va-chart-header">
+                            <div>
+                                <div class="va-chart-title"><i class="fa-solid fa-chart-bar"></i> Approval Rate by Employment</div>
+                                <div class="va-chart-sub">Grouped by years-employed bracket</div>
+                            </div>
+                        </div>
+                        <div class="va-canvas-wrap">
+                            <canvas id="vaBarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Row 2: Histogram full-width -->
+                <div class="va-charts-row va-full-row">
+                    <div class="card va-chart-card va-card-full">
+                        <div class="va-chart-header">
+                            <div>
+                                <div class="va-chart-title"><i class="fa-solid fa-chart-area"></i> Loan Amount Distribution</div>
+                                <div class="va-chart-sub">Density of approved vs denied loans across monetary bands</div>
+                            </div>
+                            <div class="va-legend">
+                                <span class="va-dot va-dot-approved"></span> Approved
+                                <span class="va-dot va-dot-denied" style="margin-left:12px;"></span> Denied
+                            </div>
+                        </div>
+                        <div class="va-canvas-wrap va-canvas-wide">
+                            <canvas id="vaHistogramChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div><!-- /vaChartsDashboard -->
+
+        </section>
+
+        <!-- ================================================================= -->
+        <!-- PAGE 5: DEVELOPER & SDK                                           -->
+        <!-- ================================================================= -->
+        <section id="page-developer" class="page-section">
+            
+            <!-- Page Intro Header -->
+            <div class="page-intro">
+                <div class="intro-tag">🛠️ Page 4: Developer & Architecture</div>
+                <h2>Pipeline Architecture & Model Download</h2>
+                <p>Review the 2-stage inference pipeline, download the serialized <code>loan_svc_project_2.pkl</code> model binary, and view code snippets to integrate predictions directly into your own applications.</p>
+            </div>
+
+            <!-- Download Banner -->
+            <div class="card download-card">
+                <div class="download-left">
+                    <div class="download-icon"><i class="fa-solid fa-file-code"></i></div>
+                    <div>
+                        <h3>loan_svc_project_2.pkl</h3>
+                        <p>Complete Scikit-Learn Pipeline: <code>StandardScaler</code> + <code>SVC(kernel='rbf', probability=True)</code></p>
+                        <div class="meta-tags">
+                            <span>Size: 998.9 KB</span>
+                            <span>Python: 3.10</span>
+                            <span>ROC-AUC: 0.8977</span>
+                        </div>
+                    </div>
+                </div>
+                <a href="/api/download-model" class="btn btn-primary">
+                    <i class="fa-solid fa-download"></i> Download .pkl Model
+                </a>
+            </div>
+
+            <!-- 2-Col Developer Grid -->
+            <div class="grid-2">
+                
+                <!-- Left: Pipeline Steps -->
+                <div class="card">
+                    <h3 class="card-title">Pipeline Architecture</h3>
+                    <div class="step-list">
+                        <div class="step-item">
+                            <div class="step-num">1</div>
+                            <div class="step-info">
+                                <strong>StandardScaler (Z-Score Normalization)</strong>
+                                <p>Standardizes all 6 input dimensions with zero mean and unit variance so no single feature dominates the distance calculation.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-item">
+                            <div class="step-num">2</div>
+                            <div class="step-info">
+                                <strong>SVC (RBF Kernel)</strong>
+                                <p>Evaluates standardized features against 15,003 support vectors using $C=7.308$ and $\gamma=0.8$.</p>
+                            </div>
+                        </div>
+
+                        <div class="step-item">
+                            <div class="step-num">3</div>
+                            <div class="step-info">
+                                <strong>Platt Scaling Calibration</strong>
+                                <p>Converts raw margin distances $f(x)$ into calibrated probabilities between 0% and 100%.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Code Snippets -->
+                <div class="card">
+                    <div class="snippet-header">
+                        <h3 class="card-title">API Integration Code</h3>
+                        <div class="tab-buttons">
+                            <button class="tab-btn active" onclick="switchCodeTab('python')">Python</button>
+                            <button class="tab-btn" onclick="switchCodeTab('curl')">cURL</button>
+                            <button class="tab-btn" onclick="switchCodeTab('javascript')">JavaScript</button>
+                        </div>
+                    </div>
+
+                    <div id="snippet-python" class="snippet-box active">
+                        <pre><code>import requests
+
+url = "http://localhost:5000/api/predict"
+payload = {
+    "annual_income": 75000,
+    "loan_amount": 15000,
+    "credit_score": 720,
+    "debt_to_income_ratio": 0.25,
+    "years_employed": 5.0,
+    "delinquencies_last_2yrs": 0
+}
+
+res = requests.post(url, json=payload).json()
+print("Verdict:", res["prediction"])
+print("Approval Probability:", res["approval_percentage"])</code></pre>
+                    </div>
+
+                    <div id="snippet-curl" class="snippet-box">
+                        <pre><code>curl -X POST http://localhost:5000/api/predict \
+  -H "Content-Type: application/json" \
+  -d '{
+    "annual_income": 75000,
+    "loan_amount": 15000,
+    "credit_score": 720,
+    "debt_to_income_ratio": 0.25,
+    "years_employed": 5.0,
+    "delinquencies_last_2yrs": 0
+  }'</code></pre>
+                    </div>
+
+                    <div id="snippet-javascript" class="snippet-box">
+                        <pre><code>const response = await fetch('/api/predict', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    annual_income: 75000,
+    loan_amount: 15000,
+    credit_score: 720,
+    debt_to_income_ratio: 0.25,
+    years_employed: 5.0,
+    delinquencies_last_2yrs: 0
+  })
+});
+
+const data = await response.json();
+console.log(data.prediction, data.approval_percentage);</code></pre>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- TOAST NOTIFICATIONS -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>
