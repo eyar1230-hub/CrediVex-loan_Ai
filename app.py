@@ -7,10 +7,12 @@ import pandas as pd
 import numpy as np
 from flask import Flask, jsonify, request, render_template, send_file, send_from_directory
 from flask_cors import CORS
+from report_generator import generate_excel_report, generate_ppt_report
 
 # 1. Initialize Flask Application
 app = Flask(__name__, template_folder="templates", static_folder="static")
-CORS(app)  # Enable Cross-Origin Resource Sharing for API consumers
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB max upload size
+CORS(app, origins=os.environ.get("CORS_ORIGINS", "*").split(","))
 
 # 2. Configuration & Model Initialization
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -219,64 +221,90 @@ def validate_and_extract_features(data):
     validation_errors = []
 
     # 1. annual_income
-    try:
-        val = float(data.get('annual_income', 0))
-        if val <= 0:
-            validation_errors.append("Annual income must be a positive number greater than 0.")
-        elif val > 10000000:
-            validation_errors.append("Annual income exceeds maximum supported limit ($10,000,000).")
-        validated_inputs['annual_income'] = val
-    except (ValueError, TypeError):
-        validation_errors.append("Annual income must be a valid numeric value.")
+    if 'annual_income' not in data or data['annual_income'] is None or data['annual_income'] == '':
+        validation_errors.append("'annual_income' is a required field.")
+    else:
+        try:
+            val = float(data['annual_income'])
+            if val <= 0:
+                validation_errors.append("Annual income must be a positive number greater than 0.")
+            elif val > 10000000:
+                validation_errors.append("Annual income exceeds maximum supported limit ($10,000,000).")
+            else:
+                validated_inputs['annual_income'] = val
+        except (ValueError, TypeError):
+            validation_errors.append("Annual income must be a valid numeric value.")
 
     # 2. loan_amount
-    try:
-        val = float(data.get('loan_amount', 0))
-        if val <= 0:
-            validation_errors.append("Loan amount must be a positive number greater than 0.")
-        elif val > 2000000:
-            validation_errors.append("Loan amount exceeds maximum loan cap ($2,000,000).")
-        validated_inputs['loan_amount'] = val
-    except (ValueError, TypeError):
-        validation_errors.append("Loan amount must be a valid numeric value.")
+    if 'loan_amount' not in data or data['loan_amount'] is None or data['loan_amount'] == '':
+        validation_errors.append("'loan_amount' is a required field.")
+    else:
+        try:
+            val = float(data['loan_amount'])
+            if val <= 0:
+                validation_errors.append("Loan amount must be a positive number greater than 0.")
+            elif val > 2000000:
+                validation_errors.append("Loan amount exceeds maximum loan cap ($2,000,000).")
+            else:
+                validated_inputs['loan_amount'] = val
+        except (ValueError, TypeError):
+            validation_errors.append("Loan amount must be a valid numeric value.")
 
     # 3. credit_score
-    try:
-        val = round(float(data.get('credit_score', 0)))
-        if val < 300 or val > 850:
-            validation_errors.append("Credit score must be between 300 and 850 (FICO standard).")
-        validated_inputs['credit_score'] = val
-    except (ValueError, TypeError):
-        validation_errors.append("Credit score must be an integer between 300 and 850.")
+    if 'credit_score' not in data or data['credit_score'] is None or data['credit_score'] == '':
+        validation_errors.append("'credit_score' is a required field.")
+    else:
+        try:
+            val = round(float(data['credit_score']))
+            if val < 300 or val > 850:
+                validation_errors.append("Credit score must be between 300 and 850 (FICO standard).")
+            else:
+                validated_inputs['credit_score'] = val
+        except (ValueError, TypeError):
+            validation_errors.append("Credit score must be an integer between 300 and 850.")
 
     # 4. debt_to_income_ratio (Accept both decimals like 0.35 and percentages like 35)
-    try:
-        raw_dti = float(data.get('debt_to_income_ratio', -1))
-        if raw_dti > 1.0 and raw_dti <= 100.0:
-            raw_dti = raw_dti / 100.0  # Normalize percentage to ratio
-        if raw_dti < 0.0 or raw_dti > 1.0:
-            validation_errors.append("Debt-to-income ratio must be between 0.0 and 1.0 (0% to 100%).")
-        validated_inputs['debt_to_income_ratio'] = raw_dti
-    except (ValueError, TypeError):
-        validation_errors.append("Debt-to-income ratio must be a valid numeric ratio between 0.0 and 1.0.")
+    if 'debt_to_income_ratio' not in data or data['debt_to_income_ratio'] is None or data['debt_to_income_ratio'] == '':
+        validation_errors.append("'debt_to_income_ratio' is a required field.")
+    else:
+        try:
+            raw_dti = float(data['debt_to_income_ratio'])
+            if raw_dti < 0.0:
+                validation_errors.append("Debt-to-income ratio cannot be negative.")
+            elif raw_dti > 100.0:
+                validation_errors.append("Debt-to-income ratio must be between 0.0 and 1.0 (as a ratio) or 0 to 100 (as a percentage).")
+            else:
+                if raw_dti > 1.0:
+                    raw_dti = raw_dti / 100.0  # Normalize percentage to ratio
+                validated_inputs['debt_to_income_ratio'] = raw_dti
+        except (ValueError, TypeError):
+            validation_errors.append("Debt-to-income ratio must be a valid numeric value.")
 
     # 5. years_employed
-    try:
-        val = float(data.get('years_employed', -1))
-        if val < 0.0 or val > 60.0:
-            validation_errors.append("Years employed must be between 0 and 60 years.")
-        validated_inputs['years_employed'] = val
-    except (ValueError, TypeError):
-        validation_errors.append("Years employed must be a positive number.")
+    if 'years_employed' not in data or data['years_employed'] is None or data['years_employed'] == '':
+        validation_errors.append("'years_employed' is a required field.")
+    else:
+        try:
+            val = float(data['years_employed'])
+            if val < 0.0 or val > 60.0:
+                validation_errors.append("Years employed must be between 0 and 60 years.")
+            else:
+                validated_inputs['years_employed'] = val
+        except (ValueError, TypeError):
+            validation_errors.append("Years employed must be a positive number.")
 
     # 6. delinquencies_last_2yrs
-    try:
-        val = round(float(data.get('delinquencies_last_2yrs', -1)))
-        if val < 0 or val > 30:
-            validation_errors.append("Delinquencies count must be an integer between 0 and 30.")
-        validated_inputs['delinquencies_last_2yrs'] = val
-    except (ValueError, TypeError):
-        validation_errors.append("Delinquencies must be an integer.")
+    if 'delinquencies_last_2yrs' not in data or data['delinquencies_last_2yrs'] is None or data['delinquencies_last_2yrs'] == '':
+        validation_errors.append("'delinquencies_last_2yrs' is a required field.")
+    else:
+        try:
+            val = round(float(data['delinquencies_last_2yrs']))
+            if val < 0 or val > 30:
+                validation_errors.append("Delinquencies count must be an integer between 0 and 30.")
+            else:
+                validated_inputs['delinquencies_last_2yrs'] = val
+        except (ValueError, TypeError):
+            validation_errors.append("Delinquencies must be an integer.")
 
     return validated_inputs, validation_errors
 
@@ -343,12 +371,12 @@ def api_predict():
         prediction_label = "Approved" if is_approved else "Rejected"
 
         # Probability Estimation
-        if hasattr(pipeline, 'predict_proba'):
+        try:
             probas = pipeline.predict_proba(input_df)[0]
             # Match classes: [0, 1]
             p_reject = float(probas[0])
             p_approve = float(probas[1])
-        else:
+        except Exception:
             p_approve = 0.90 if is_approved else 0.10
             p_reject = 1.0 - p_approve
 
@@ -372,7 +400,8 @@ def api_predict():
             risk_color = "#FF3366"
 
         # Benchmark comparison metrics for UI charts
-        loan_to_income = validated_inputs['loan_amount'] / validated_inputs['annual_income']
+        annual_inc = validated_inputs.get('annual_income', 0)
+        loan_to_income = (validated_inputs['loan_amount'] / annual_inc) if annual_inc > 0 else float('inf')
         benchmarks = {
             "credit_score": {
                 "value": validated_inputs['credit_score'],
@@ -578,17 +607,13 @@ def api_predict_bulk():
             "error_count": len(errors)
         })
     except Exception as e:
-        import traceback
         traceback.print_exc()
         return jsonify({"success": False, "error": f"Inference error: {str(e)}"}), 500
 
 
-
-from report_generator import generate_excel_report, generate_ppt_report
-
 @app.route('/api/export-excel', methods=['POST'])
 def api_export_excel():
-    data = request.json
+    data = request.get_json(force=True, silent=True)
     if not data or not isinstance(data, list):
         return jsonify({"success": False, "error": "Invalid data format."}), 400
     try:
@@ -604,7 +629,7 @@ def api_export_excel():
 
 @app.route('/api/export-ppt', methods=['POST'])
 def api_export_ppt():
-    data = request.json
+    data = request.get_json(force=True, silent=True)
     if not data or not isinstance(data, list):
         return jsonify({"success": False, "error": "Invalid data format."}), 400
     try:

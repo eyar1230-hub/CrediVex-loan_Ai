@@ -1,6 +1,6 @@
-﻿services:
+services:
   - type: web
-    name: lendwell-loan-app
+    name: credivex-loan-app
     env: python
     buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app
