@@ -1,4 +1,4 @@
-/**
+﻿/**
  * AURA LOAN // Clean & Minimal Client-Side Engine
  */
 
@@ -809,7 +809,7 @@ async function handleBulkUpload(event) {
 }
 
 /* ==========================================================================
-   VISUAL ANALYTICS — Page 4
+   VISUAL ANALYTICS ג€” Page 4
    Reads from the last bulk upload result stored in window.__bulkResults.
    Called by "View Data Analytics" button and by switchPage when navigating
    to page-visual-analytics.
@@ -962,7 +962,7 @@ function renderVABarChart(results) {
 
     if (vaBarInstance) { vaBarInstance.destroy(); vaBarInstance = null; }
 
-    const brackets   = ['0–2 yrs', '3–5 yrs', '6–10 yrs', '11–20 yrs', '21+ yrs'];
+    const brackets   = ['0ג€“2 yrs', '3ג€“5 yrs', '6ג€“10 yrs', '11ג€“20 yrs', '21+ yrs'];
     const totals     = [0, 0, 0, 0, 0];
     const approvals  = [0, 0, 0, 0, 0];
 
@@ -980,7 +980,7 @@ function renderVABarChart(results) {
 
     const rates = totals.map((t, i) => t > 0 ? parseFloat(((approvals[i] / t) * 100).toFixed(1)) : 0);
 
-    // Colour each bar by rate: green ≥ 60 %, orange 40–59 %, red < 40 %
+    // Colour each bar by rate: green ג‰¥ 60 %, orange 40ג€“59 %, red < 40 %
     const barColors = rates.map(v =>
         v >= 60 ? 'rgba(5,150,105,0.82)'  :
         v >= 40 ? 'rgba(234,88,12,0.82)'  :
@@ -1031,7 +1031,7 @@ function renderVABarChart(results) {
 }
 
 /* -------------------------------------------------------------------------- */
-/* Histogram: Loan Amount distribution — Approved vs Denied                   */
+/* Histogram: Loan Amount distribution ג€” Approved vs Denied                   */
 /* -------------------------------------------------------------------------- */
 function renderVAHistogram(results) {
     const canvas = document.getElementById('vaHistogramChart');
@@ -1040,7 +1040,7 @@ function renderVAHistogram(results) {
     if (vaHistogramInstance) { vaHistogramInstance.destroy(); vaHistogramInstance = null; }
 
     // Build $10 k bands up to $150 k, then "> $150k"
-    const BANDS   = ['<$10k','$10–20k','$20–30k','$30–50k','$50–75k','$75–100k','$100–150k','>$150k'];
+    const BANDS   = ['<$10k','$10ג€“20k','$20ג€“30k','$30ג€“50k','$50ג€“75k','$75ג€“100k','$100ג€“150k','>$150k'];
     const appBins = new Array(BANDS.length).fill(0);
     const denBins = new Array(BANDS.length).fill(0);
 
@@ -1110,4 +1110,5 @@ function renderVAHistogram(results) {
         }
     });
 }
+
 

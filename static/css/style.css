@@ -1,5 +1,5 @@
-/* ==========================================================================
-   LENDWELL // PREMIUM LIGHT DESIGN SYSTEM
+﻿/* ==========================================================================
+   CrediNova // PREMIUM LIGHT DESIGN SYSTEM
    Vibrant colors, glassmorphism, micro-animations, polished typography.
    ========================================================================== */
 
@@ -56,7 +56,7 @@
     --shadow-btn: 0 2px 8px rgba(59,91,219,0.2);
 }
 
-/* ── Base Reset ─────────────────────────────────────────────────────────── */
+/* ג”€ג”€ Base Reset ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 *, *::before, *::after {
     margin: 0;
     padding: 0;
@@ -76,7 +76,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* ── Utility Helpers ────────────────────────────────────────────────────── */
+/* ג”€ג”€ Utility Helpers ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .text-green     { color: var(--color-green) !important; }
 .text-turquoise { color: var(--color-turquoise) !important; }
 .text-orange    { color: var(--color-orange) !important; }
@@ -86,7 +86,7 @@ body {
 .bg-turquoise { background: linear-gradient(135deg, #cffafe, #a5f3fc); color: var(--color-turquoise); }
 .bg-orange    { background: linear-gradient(135deg, #ffedd5, #fed7aa); color: var(--color-orange); }
 
-/* ── Animations ─────────────────────────────────────────────────────────── */
+/* ג”€ג”€ Animations ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 @keyframes pageIn {
     from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -101,7 +101,7 @@ body {
     50%       { transform: translateY(-6px); }
 }
 
-/* ── Card Base ──────────────────────────────────────────────────────────── */
+/* ג”€ג”€ Card Base ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .card {
     background: var(--bg-card);
     border: 1px solid var(--border-color);
@@ -787,12 +787,12 @@ body {
 .toast.info    { border-left: 3px solid var(--color-sapphire); }
 
 /* ==========================================================================
-   RESPONSIVE — Full Mobile-First Overhaul
-   Optimised for: Galaxy S25 Ultra (412×916), iPhone 15 Pro (393×852),
+   RESPONSIVE ג€” Full Mobile-First Overhaul
+   Optimised for: Galaxy S25 Ultra (412ֳ—916), iPhone 15 Pro (393ֳ—852),
    tablets (768+) and desktops (1024+).
    ========================================================================== */
 
-/* ── Hamburger Menu Button (hidden on desktop) ──────────────────────────── */
+/* ג”€ג”€ Hamburger Menu Button (hidden on desktop) ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .nav-hamburger {
     display: none;
     flex-direction: column;
@@ -824,7 +824,7 @@ body {
 .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
 .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-/* ── Mobile Nav Overlay ─────────────────────────────────────────────────── */
+/* ג”€ג”€ Mobile Nav Overlay ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 .nav-mobile-overlay {
     display: none;
     position: fixed;
@@ -835,7 +835,7 @@ body {
 }
 .nav-mobile-overlay.visible { display: block; }
 
-/* ── Tablet: 960px ─────────────────────────────────────────────────────── */
+/* ג”€ג”€ Tablet: 960px ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 @media (max-width: 960px) {
     /* Grids */
     .hero-grid,
@@ -866,7 +866,7 @@ body {
     #bulkResultsPanel { overflow-x: auto; }
 }
 
-/* ── Mobile: 768px ─────────────────────────────────────────────────────── */
+/* ג”€ג”€ Mobile: 768px ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 @media (max-width: 768px) {
     /* ---- Navbar ---- */
     .navbar {
@@ -990,7 +990,7 @@ body {
     .download-card .btn { width: 100%; justify-content: center; }
 }
 
-/* ── Small Mobile: 480px (Galaxy S25 Ultra portrait etc.) ──────────────── */
+/* ג”€ג”€ Small Mobile: 480px (Galaxy S25 Ultra portrait etc.) ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 @media (max-width: 480px) {
     .main-container { padding: 12px 10px; }
 
@@ -1000,7 +1000,7 @@ body {
 
     .card { padding: 14px; border-radius: var(--radius-md); }
 
-    /* Charts — taller on narrow screens so data is still legible */
+    /* Charts ג€” taller on narrow screens so data is still legible */
     .chart-canvas-wrap  { height: 200px; }
     .va-canvas-wrap     { height: 210px; }
     .va-canvas-wide     { height: 190px; }
@@ -1030,14 +1030,14 @@ body {
     .snippet-box pre { font-size: 0.72rem; }
 }
 
-/* ── High-DPI / Retina (Galaxy S25 Ultra 3088×1440 → ~3× DPR) ─────────── */
+/* ג”€ג”€ High-DPI / Retina (Galaxy S25 Ultra 3088ֳ—1440 ג†’ ~3ֳ— DPR) ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 @media (-webkit-min-device-pixel-ratio: 2.5), (min-resolution: 240dpi) {
     .card          { box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 3px 12px rgba(59,91,219,0.07); }
     .navbar-wrapper{ box-shadow: 0 1px 16px rgba(59,91,219,0.08); }
     .brand-logo    { image-rendering: -webkit-optimize-contrast; }
 }
 
-/* ── Landscape phones ───────────────────────────────────────────────────── */
+/* ג”€ג”€ Landscape phones ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ג”€ */
 @media (max-width: 900px) and (orientation: landscape) {
     .navbar { padding: 6px 16px; }
     .brand-logo { height: 40px !important; }
@@ -1045,4 +1045,5 @@ body {
     .chart-canvas-wrap { height: 160px; }
     .va-canvas-wrap    { height: 170px; }
 }
+
 

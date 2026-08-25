@@ -1,4 +1,4 @@
-﻿# 🏦 Lendwell — AI Loan Underwriting Engine
+﻿# 🏦 CrediNova — AI Loan Underwriting Engine
 
 > **An interactive, full-stack loan approval platform powered by a Support Vector Classifier (SVC) with RBF kernel, built with Flask + Vanilla JS.**
 
@@ -51,7 +51,7 @@
 ## 🗂️ Project Structure
 
 ```
-lendwell-loan-app/
+CrediNova-loan-app/
 ├── app.py                      # Flask application & API routes
 ├── loan_svc_project_2.pkl      # Trained SVC pipeline (StandardScaler + SVC)
 ├── Loan_approval_data_2025.csv # Training dataset
@@ -61,12 +61,12 @@ lendwell-loan-app/
 │
 ├── static/
 │   ├── css/
-│   │   ├── style.css           # Main Lendwell design system
+│   │   ├── style.css           # Main CrediNova design system
 │   │   └── visual_analytics.css# Visual Analytics page styles
 │   ├── js/
 │   │   └── main.js             # SPA navigation, charts, bulk upload, analytics
 │   ├── logos/
-│   │   └── lendwell_logo.jpg
+│   │   └── CrediNova_logo.jpg
 │   └── favicon.ico
 │
 └── requirements.txt            # Python dependencies
@@ -127,8 +127,8 @@ lendwell-loan-app/
 
 ```bash
 # 1. Clone the repo
-git clone https://github.com/eyar1230-hub/lendwell-loan-app.git
-cd lendwell-loan-app
+git clone https://github.com/eyar1230-hub/CrediNova-loan-app.git
+cd CrediNova-loan-app
 
 # 2. Create and activate a virtual environment
 python -m venv .venv
@@ -185,3 +185,4 @@ MIT License — feel free to fork and adapt.
 ---
 
 *Built with ❤️ by [eyar1230](https://github.com/eyar1230-hub)*
+

@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="AI Loan Underwriting & Risk Evaluation Platform powered by Support Vector Machines">
     <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
-    <title>Lendwell — AI Credit Underwriting Engine</title>
+    <title>CrediNova ג€” AI Credit Underwriting Engine</title>
 
     <!-- Google Fonts: Inter & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,8 +29,8 @@
     <header class="navbar-wrapper">
         <nav class="navbar">
             <div class="nav-brand" onclick="switchPage('page-home')">
-                <img src="/static/logos/lendwell_logo.jpg" alt="Lendwell Logo" class="brand-logo" style="height: 90px; border-radius: 6px; margin-right: 12px;">
-                <div class="brand-name">Lendwell</div>
+                <img src="/static/logos/credinova_logo.jpg" alt="CrediNova Logo" class="brand-logo" style="height: 90px; border-radius: 6px; margin-right: 12px;">
+                <div class="brand-name">CrediNova</div>
                 <span class="brand-tag">SVC Engine</span>
             </div>
 
@@ -72,18 +72,18 @@
             
             <!-- Page Intro Header -->
             <div class="page-intro">
-                <div class="intro-tag">💡 Page 1: Platform Overview</div>
+                <div class="intro-tag">נ’¡ Page 1: Platform Overview</div>
                 <h2>Machine Learning Underwriting Platform</h2>
-                <p>Welcome to Lendwell. This system uses a Support Vector Classifier (SVC) with an RBF kernel to evaluate loan applications, identify credit risk, and provide transparent probability scores.</p>
+                <p>Welcome to CrediNova. This system uses a Support Vector Classifier (SVC) with an RBF kernel to evaluate loan applications, identify credit risk, and provide transparent probability scores.</p>
             </div>
 
             <!-- Hero Section -->
             <div class="hero-grid">
                 <div class="hero-text-card card">
-                    <div class="badge-pill">Support Vector Machine • 89.8% ROC-AUC</div>
+                    <div class="badge-pill">Support Vector Machine ג€¢ 89.8% ROC-AUC</div>
                     <h1>Automated credit decisions powered by Support Vector AI</h1>
                     <p class="hero-desc">
-                        Our model analyzes 6 core financial indicators — income, loan size, credit score, debt-to-income ratio, employment tenure, and delinquency history — to produce reliable, data-driven loan decisions.
+                        Our model analyzes 6 core financial indicators ג€” income, loan size, credit score, debt-to-income ratio, employment tenure, and delinquency history ג€” to produce reliable, data-driven loan decisions.
                     </p>
                     <div class="hero-btn-row">
                         <button class="btn btn-primary" onclick="switchPage('page-evaluation')">
@@ -111,7 +111,7 @@
                             <strong>7.308</strong>
                         </div>
                         <div class="q-stat-item">
-                            <span>Kernel Gamma (γ)</span>
+                            <span>Kernel Gamma (־³)</span>
                             <strong>0.800</strong>
                         </div>
                         <div class="q-stat-item">
@@ -163,7 +163,7 @@
                     <div class="guide-item">
                         <span class="guide-number">03</span>
                         <h4>Benchmark Comparison</h4>
-                        <p>Visualizes the applicant’s metrics against safe underwriting thresholds (100% baseline) to quickly pinpoint risk factors.</p>
+                        <p>Visualizes the applicantג€™s metrics against safe underwriting thresholds (100% baseline) to quickly pinpoint risk factors.</p>
                     </div>
                 </div>
             </div>
@@ -176,7 +176,7 @@
             
             <!-- Page Intro Header -->
             <div class="page-intro">
-                <div class="intro-tag">📊 Page 2: Model Telemetry</div>
+                <div class="intro-tag">נ“ Page 2: Model Telemetry</div>
                 <h2>Model Architecture & Parameter Breakdown</h2>
                 <p>This page dynamically pulls live telemetry from the backend API (<code>/api/metadata</code>, <code>/api/model-info</code>, and <code>/api/features</code>). Review the RBF kernel parameters, decision function formulation, and input feature constraints.</p>
             </div>
@@ -192,7 +192,7 @@
                 <div class="card param-card">
                     <span class="param-title">Kernel Family</span>
                     <div class="param-val text-turquoise" id="cardKernelType">RBF (Radial)</div>
-                    <span class="param-sub" id="cardGamma">Gamma (γ): 0.800</span>
+                    <span class="param-sub" id="cardGamma">Gamma (־³): 0.800</span>
                 </div>
 
                 <div class="card param-card">
@@ -221,7 +221,7 @@
                 </div>
                 <div class="math-meta-row">
                     <span><strong>Intercept (b):</strong> <code id="mathIntercept">-0.344238</code></span>
-                    <span><strong>Gamma (γ):</strong> <code id="mathGamma">0.800</code></span>
+                    <span><strong>Gamma (־³):</strong> <code id="mathGamma">0.800</code></span>
                     <span><strong>C Penalty:</strong> <code id="mathC">7.308</code></span>
                     <span><strong>Scaler:</strong> <code>StandardScaler</code></span>
                 </div>
@@ -248,7 +248,7 @@
             
             <!-- Page Intro Header -->
             <div class="page-intro">
-                <div class="intro-tag">🎯 Page 3: Evaluation Hub</div>
+                <div class="intro-tag">נ¯ Page 3: Evaluation Hub</div>
                 <h2>Interactive Loan Applicant Evaluator</h2>
                 <p>Enter an applicant's financial attributes below or select a sample profile to evaluate loan approval in real time. The form validates all inputs before querying the model pipeline via <code>/api/predict</code>.</p>
                 <div style="margin-top: 14px;">
@@ -268,10 +268,10 @@
             <div class="preset-bar card" id="singlePresetBar">
                 <span class="preset-label">Sample Profiles:</span>
                 <div class="preset-group">
-                    <button class="btn-preset" onclick="loadPreset('prime')">🟢 Prime Borrower</button>
-                    <button class="btn-preset" onclick="loadPreset('subprime')">🔴 High Risk / Subprime</button>
-                    <button class="btn-preset" onclick="loadPreset('borderline')">🟡 Borderline Case</button>
-                    <button class="btn-preset" onclick="loadPreset('high_leverage')">🟣 High Income / High Debt</button>
+                    <button class="btn-preset" onclick="loadPreset('prime')">נ¢ Prime Borrower</button>
+                    <button class="btn-preset" onclick="loadPreset('subprime')">נ”´ High Risk / Subprime</button>
+                    <button class="btn-preset" onclick="loadPreset('borderline')">נ¡ Borderline Case</button>
+                    <button class="btn-preset" onclick="loadPreset('high_leverage')">נ£ High Income / High Debt</button>
                     <button class="btn-preset btn-clear" onclick="clearForm()">Reset</button>
                 </div>
             </div>
@@ -423,8 +423,8 @@
                                     <canvas id="probDoughnutChart"></canvas>
                                 </div>
                                 <div class="chart-legend-clean">
-                                    <span><strong class="text-green">■</strong> Approval: <span id="legendApproveVal">95.6%</span></span>
-                                    <span><strong class="text-red">■</strong> Rejection: <span id="legendRejectVal">4.4%</span></span>
+                                    <span><strong class="text-green">ג– </strong> Approval: <span id="legendApproveVal">95.6%</span></span>
+                                    <span><strong class="text-red">ג– </strong> Rejection: <span id="legendRejectVal">4.4%</span></span>
                                 </div>
                             </div>
 
@@ -514,11 +514,11 @@
 
             <!-- Page Header -->
             <div class="page-intro va-page-intro">
-                <div class="intro-tag">📈 Page 4: Visual Analytics</div>
+                <div class="intro-tag">נ“ˆ Page 4: Visual Analytics</div>
                 <div class="va-header-row">
                     <div>
                         <h2>Bulk Loan Portfolio Analytics</h2>
-                        <p>Visual summaries of your uploaded bulk evaluation — analyzing SVC decision boundaries, employment tenure, and loan-amount risk distributions across the portfolio.</p>
+                        <p>Visual summaries of your uploaded bulk evaluation ג€” analyzing SVC decision boundaries, employment tenure, and loan-amount risk distributions across the portfolio.</p>
                     </div>
                     <button class="btn btn-outline va-back-btn" onclick="switchPage('page-evaluation')">
                         <i class="fa-solid fa-arrow-left"></i> Back to Evaluation Hub
@@ -530,7 +530,7 @@
             <div id="vaEmptyState" class="card va-empty-state">
                 <div class="va-empty-icon"><i class="fa-solid fa-chart-bar"></i></div>
                 <h3>No Portfolio Data Yet</h3>
-                <p>Upload a CSV/Excel file in the <strong>Evaluation Hub → Bulk Upload</strong> tab first, then return here to explore the analytics.</p>
+                <p>Upload a CSV/Excel file in the <strong>Evaluation Hub ג†’ Bulk Upload</strong> tab first, then return here to explore the analytics.</p>
                 <button class="btn btn-primary" onclick="switchPage('page-evaluation'); setEvalMode('bulk');">
                     <i class="fa-solid fa-upload"></i> Go to Bulk Upload
                 </button>
@@ -549,7 +549,7 @@
                         <div class="va-chart-header">
                             <div>
                                 <div class="va-chart-title"><i class="fa-solid fa-scatter-chart"></i> DTI vs Credit Score</div>
-                                <div class="va-chart-sub">SVC feature boundary — colour = model decision</div>
+                                <div class="va-chart-sub">SVC feature boundary ג€” colour = model decision</div>
                             </div>
                             <div class="va-legend">
                                 <span class="va-dot va-dot-approved"></span> Approved
@@ -605,7 +605,7 @@
             
             <!-- Page Intro Header -->
             <div class="page-intro">
-                <div class="intro-tag">🛠️ Page 4: Developer & Architecture</div>
+                <div class="intro-tag">נ› ן¸ Page 4: Developer & Architecture</div>
                 <h2>Pipeline Architecture & Model Download</h2>
                 <p>Review the 2-stage inference pipeline, download the serialized <code>loan_svc_project_2.pkl</code> model binary, and view code snippets to integrate predictions directly into your own applications.</p>
             </div>
@@ -734,3 +734,5 @@ console.log(data.prediction, data.approval_percentage);</code></pre>
     <script src="/static/js/main.js"></script>
 </body>
 </html>
+
+
