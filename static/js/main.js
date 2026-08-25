@@ -963,7 +963,7 @@ function renderVABarChart(results) {
 
     if (vaBarInstance) { vaBarInstance.destroy(); vaBarInstance = null; }
 
-    const brackets   = ['0ג€“2 yrs', '3ג€“5 yrs', '6ג€“10 yrs', '11ג€“20 yrs', '21+ yrs'];
+    const brackets   = ['0-2 yrs', '3-5 yrs', '6-10 yrs', '11-20 yrs', '21+ yrs'];
     const totals     = [0, 0, 0, 0, 0];
     const approvals  = [0, 0, 0, 0, 0];
 
@@ -1044,7 +1044,7 @@ function renderVAHistogram(results) {
     if (vaHistogramInstance) { vaHistogramInstance.destroy(); vaHistogramInstance = null; }
 
     // Build $10 k bands up to $150 k, then "> $150k"
-    const BANDS   = ['<$10k','$10ג€“20k','$20ג€“30k','$30ג€“50k','$50ג€“75k','$75ג€“100k','$100ג€“150k','>$150k'];
+    const BANDS   = ['<$10k','$10-20k','$20-30k','$30-50k','$50-75k','$75-100k','$100-150k','>$150k'];
     const appBins = new Array(BANDS.length).fill(0);
     const denBins = new Array(BANDS.length).fill(0);
 

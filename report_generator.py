@@ -2,7 +2,8 @@ import io
 import xlsxwriter
 from pptx import Presentation
 from pptx.util import Inches, Pt
-from pptx.enum.chart import XL_CHART_TYPE
+from pptx.enum.chart import XL_CHART_TYPE, XL_MARKER_STYLE
+from pptx.enum.dml import MSO_THEME_COLOR_INDEX
 from pptx.chart.data import ChartData
 from pptx.dml.color import RGBColor
 import os
@@ -119,14 +120,14 @@ def generate_excel_report(results):
             'name': 'Approved',
             'categories': f'=ChartData!$H$2:$H${len(scatter_app_x)+1}',
             'values':     f'=ChartData!$I$2:$I${len(scatter_app_y)+1}',
-            'marker': {'type': 'circle', 'size': 5, 'border': {'color': '#059669'}, 'fill': {'color': '#059669'}}
+            'marker': {'type': 'circle', 'size': 3, 'border': {'none': True}, 'fill': {'color': '#059669'}}
         })
     if scatter_den_x:
         scatter.add_series({
             'name': 'Denied',
             'categories': f'=ChartData!$J$2:$J${len(scatter_den_x)+1}',
             'values':     f'=ChartData!$K$2:$K${len(scatter_den_y)+1}',
-            'marker': {'type': 'circle', 'size': 5, 'border': {'color': '#dc2626'}, 'fill': {'color': '#dc2626'}}
+            'marker': {'type': 'circle', 'size': 3, 'border': {'none': True}, 'fill': {'color': '#dc2626'}}
         })
     scatter.set_title({'name': 'Decision Boundary: DTI vs Credit Score'})
     scatter.set_x_axis({'name': 'Debt-to-Income Ratio (%)'})
@@ -225,11 +226,26 @@ def generate_ppt_report(results):
     # ---------------- Slide 1: Title ----------------
     title_slide_layout = prs.slide_layouts[0]
     slide = prs.slides.add_slide(title_slide_layout)
+    
+    # Apply dark theme background to Title Slide
+    fill = slide.background.fill
+    fill.solid()
+    fill.fore_color.rgb = RGBColor(15, 23, 42) # #0f172a
+    
     title = slide.shapes.title
     subtitle = slide.placeholders[1]
     title.text = "CREDIVEX Bulk Evaluation Analytics"
     subtitle.text = f"Total Processed: {len(results)}\nNative Chart Report"
     
+    # Style text colors
+    for paragraph in title.text_frame.paragraphs:
+        for run in paragraph.runs:
+            run.font.color.rgb = RGBColor(255, 255, 255)
+            
+    for paragraph in subtitle.text_frame.paragraphs:
+        for run in paragraph.runs:
+            run.font.color.rgb = RGBColor(148, 163, 184)
+            
     if os.path.exists(LOGO_PATH):
         slide.shapes.add_picture(LOGO_PATH, Inches(4), Inches(0.5), height=Inches(1.5))
         
@@ -238,6 +254,9 @@ def generate_ppt_report(results):
     # ---------------- Slide 2: Scatter Chart ----------------
     slide = prs.slides.add_slide(prs.slide_layouts[5])
     slide.shapes.title.text = "Decision Boundary: DTI vs Credit Score"
+    for paragraph in slide.shapes.title.text_frame.paragraphs:
+        for run in paragraph.runs:
+            run.font.color.rgb = RGBColor(30, 41, 59)
     
     from pptx.chart.data import XyChartData
     chart_data = XyChartData()
@@ -261,16 +280,25 @@ def generate_ppt_report(results):
     chart.value_axis.axis_title.text_frame.text = 'Credit Score (FICO)'
     
     if scatter_app_x:
+        chart.series[0].marker.style = XL_MARKER_STYLE.CIRCLE
+        chart.series[0].marker.size = 3
         chart.series[0].marker.format.fill.solid()
         chart.series[0].marker.format.fill.fore_color.rgb = RGBColor(5, 150, 105)
+        chart.series[0].format.line.fill.background() # No border
     if scatter_den_x:
         s_idx = 1 if scatter_app_x else 0
+        chart.series[s_idx].marker.style = XL_MARKER_STYLE.CIRCLE
+        chart.series[s_idx].marker.size = 3
         chart.series[s_idx].marker.format.fill.solid()
         chart.series[s_idx].marker.format.fill.fore_color.rgb = RGBColor(220, 38, 38)
+        chart.series[s_idx].format.line.fill.background() # No border
 
     # ---------------- Slide 3: Bar Chart ----------------
     slide = prs.slides.add_slide(prs.slide_layouts[5])
     slide.shapes.title.text = "Approval Rate by Employment Tenure"
+    for paragraph in slide.shapes.title.text_frame.paragraphs:
+        for run in paragraph.runs:
+            run.font.color.rgb = RGBColor(30, 41, 59)
     
     chart_data = ChartData()
     chart_data.categories = ye_labels
@@ -289,6 +317,9 @@ def generate_ppt_report(results):
     # ---------------- Slide 4: Histogram ----------------
     slide = prs.slides.add_slide(prs.slide_layouts[5])
     slide.shapes.title.text = "Loan Amount Distribution"
+    for paragraph in slide.shapes.title.text_frame.paragraphs:
+        for run in paragraph.runs:
+            run.font.color.rgb = RGBColor(30, 41, 59)
     
     chart_data = ChartData()
     chart_data.categories = loan_labels
