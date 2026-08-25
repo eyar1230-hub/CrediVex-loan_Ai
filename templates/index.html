@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -29,7 +29,7 @@
     <header class="navbar-wrapper">
         <nav class="navbar">
             <div class="nav-brand" onclick="switchPage('page-home')">
-                <img src="/static/logos/credivex_logo.jpg" alt="CREDIVEX Logo" class="brand-logo" style="height: 90px; border-radius: 6px; margin-right: 12px;">
+                <img src="/static/logos/credivex_logo.jpg" alt="CREDIVEX Logo" class="brand-logo" style="height: 153px; border-radius: 6px; margin-right: 12px;">
                 <div class="brand-name">CREDIVEX</div>
                 <span class="brand-tag">SVC Engine</span>
             </div>
@@ -73,7 +73,10 @@
             <!-- Page Intro Header -->
             <div class="page-intro">
                 <div class="intro-tag">נ’¡ Page 1: Platform Overview</div>
-                <h2>Machine Learning Underwriting Platform</h2>
+                <div class="page-title-wrap">
+                    <div class="page-title-icon-box icon-box-overview"><i class="fa-solid fa-server"></i></div>
+                    <h2>Machine Learning Underwriting Platform</h2>
+                </div>
                 <p>Welcome to CREDIVEX. This system uses a Support Vector Classifier (SVC) with an RBF kernel to evaluate loan applications, identify credit risk, and provide transparent probability scores.</p>
             </div>
 
@@ -177,7 +180,10 @@
             <!-- Page Intro Header -->
             <div class="page-intro">
                 <div class="intro-tag">נ“ Page 2: Model Telemetry</div>
-                <h2>Model Architecture & Parameter Breakdown</h2>
+                <div class="page-title-wrap">
+                    <div class="page-title-icon-box icon-box-model"><i class="fa-solid fa-network-wired"></i></div>
+                    <h2>Model Architecture & Parameter Breakdown</h2>
+                </div>
                 <p>This page dynamically pulls live telemetry from the backend API (<code>/api/metadata</code>, <code>/api/model-info</code>, and <code>/api/features</code>). Review the RBF kernel parameters, decision function formulation, and input feature constraints.</p>
             </div>
 
@@ -249,7 +255,10 @@
             <!-- Page Intro Header -->
             <div class="page-intro">
                 <div class="intro-tag">נ¯ Page 3: Evaluation Hub</div>
-                <h2>Interactive Loan Applicant Evaluator</h2>
+                <div class="page-title-wrap">
+                    <div class="page-title-icon-box icon-box-eval"><i class="fa-solid fa-users-viewfinder"></i></div>
+                    <h2>Interactive Loan Applicant Evaluator</h2>
+                </div>
                 <p>Enter an applicant's financial attributes below or select a sample profile to evaluate loan approval in real time. The form validates all inputs before querying the model pipeline via <code>/api/predict</code>.</p>
                 <div style="margin-top: 14px;">
                     <button class="btn btn-secondary" onclick="switchPage('page-visual-analytics'); loadVisualAnalytics();">
@@ -517,7 +526,10 @@
                 <div class="intro-tag">נ“ˆ Page 4: Visual Analytics</div>
                 <div class="va-header-row">
                     <div>
-                        <h2>Bulk Loan Portfolio Analytics</h2>
+                        <div class="page-title-wrap">
+                            <div class="page-title-icon-box icon-box-visual"><i class="fa-solid fa-chart-column"></i></div>
+                            <h2>Bulk Loan Portfolio Analytics</h2>
+                        </div>
                         <p>Visual summaries of your uploaded bulk evaluation ג€” analyzing SVC decision boundaries, employment tenure, and loan-amount risk distributions across the portfolio.</p>
                     </div>
                     <button class="btn btn-outline va-back-btn" onclick="switchPage('page-evaluation')">
@@ -606,7 +618,10 @@
             <!-- Page Intro Header -->
             <div class="page-intro">
                 <div class="intro-tag">נ› ן¸ Page 4: Developer & Architecture</div>
-                <h2>Pipeline Architecture & Model Download</h2>
+                <div class="page-title-wrap">
+                    <div class="page-title-icon-box icon-box-dev"><i class="fa-solid fa-code"></i></div>
+                    <h2>Pipeline Architecture & Model Download</h2>
+                </div>
                 <p>Review the 2-stage inference pipeline, download the serialized <code>loan_svc_project_2.pkl</code> model binary, and view code snippets to integrate predictions directly into your own applications.</p>
             </div>
 
@@ -734,6 +749,7 @@ console.log(data.prediction, data.approval_percentage);</code></pre>
     <script src="/static/js/main.js"></script>
 </body>
 </html>
+
 
 
 
