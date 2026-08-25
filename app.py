@@ -568,5 +568,6 @@ def api_predict_bulk():
 # 3. Server Entry Point
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
+    debug = os.environ.get("DEBUG", "false").lower() == "true"
     print(f"[*] Starting Loan Approval SVC Server on http://localhost:{port}")
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=debug)

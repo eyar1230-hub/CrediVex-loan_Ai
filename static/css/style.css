@@ -1,4 +1,4 @@
-﻿/* ==========================================================================
+/* ==========================================================================
    LENDWELL // PREMIUM LIGHT DESIGN SYSTEM
    Vibrant colors, glassmorphism, micro-animations, polished typography.
    ========================================================================== */
@@ -787,18 +787,262 @@ body {
 .toast.info    { border-left: 3px solid var(--color-sapphire); }
 
 /* ==========================================================================
-   RESPONSIVE
+   RESPONSIVE — Full Mobile-First Overhaul
+   Optimised for: Galaxy S25 Ultra (412×916), iPhone 15 Pro (393×852),
+   tablets (768+) and desktops (1024+).
    ========================================================================== */
+
+/* ── Hamburger Menu Button (hidden on desktop) ──────────────────────────── */
+.nav-hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: var(--radius-sm);
+    transition: background 0.18s;
+    flex-shrink: 0;
+}
+.nav-hamburger:hover { background: rgba(99,102,241,0.08); }
+.nav-hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text-heading);
+    border-radius: 2px;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+    transform-origin: center;
+}
+/* Animated X when open */
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Mobile Nav Overlay ─────────────────────────────────────────────────── */
+.nav-mobile-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(15,23,42,0.45);
+    z-index: 98;
+    backdrop-filter: blur(2px);
+}
+.nav-mobile-overlay.visible { display: block; }
+
+/* ── Tablet: 960px ─────────────────────────────────────────────────────── */
 @media (max-width: 960px) {
-    .hero-grid, .eval-layout, .grid-2, .charts-row { grid-template-columns: 1fr; }
-    .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
+    /* Grids */
+    .hero-grid,
+    .eval-layout,
+    .grid-2,
+    .charts-row    { grid-template-columns: 1fr; }
+    .grid-3        { grid-template-columns: 1fr 1fr; }
+    .grid-4        { grid-template-columns: 1fr 1fr; }
+
+    /* VA Charts */
+    .va-charts-row { grid-template-columns: 1fr; }
+
+    /* Cards */
+    .card { padding: 18px; }
+
+    /* Evaluation layout */
+    .eval-layout { gap: 16px; }
+
+    /* Charts */
+    .chart-canvas-wrap { height: 200px; }
+    .va-canvas-wrap    { height: 240px; }
+    .va-canvas-wide    { height: 210px; }
+
+    /* Results column */
+    .results-col { width: 100%; }
+
+    /* Bulk panel */
+    #bulkResultsPanel { overflow-x: auto; }
 }
-@media (max-width: 600px) {
-    .navbar { padding: 10px 14px; }
-    .grid-3, .grid-4, .checklist-grid { grid-template-columns: 1fr; }
-    .nav-actions { display: none; }
-    .nav-btn { padding: 8px 10px; font-size: 0.82rem; }
-    .hero-text-card h1 { font-size: 1.65rem; }
-    .verdict-metrics { flex-wrap: wrap; }
-    .v-metric { align-items: flex-start; }
+
+/* ── Mobile: 768px ─────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+    /* ---- Navbar ---- */
+    .navbar {
+        padding: 8px 16px;
+        flex-wrap: nowrap;
+        position: relative;
+    }
+
+    /* Show hamburger, hide inline nav + actions */
+    .nav-hamburger { display: flex; }
+    .nav-actions   { display: none !important; }
+
+    .nav-links {
+        display: none;
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: min(80vw, 300px);
+        background: rgba(255,255,255,0.97);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        flex-direction: column;
+        gap: 0;
+        padding: 80px 16px 32px;
+        z-index: 99;
+        box-shadow: -4px 0 32px rgba(59,91,219,0.12);
+        overflow-y: auto;
+        list-style: none;
+        border-left: 1px solid var(--border-color);
+        animation: slideInRight 0.25s ease;
+    }
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to   { transform: translateX(0);   opacity: 1; }
+    }
+    .nav-links.mobile-open { display: flex; }
+
+    .nav-links li { width: 100%; }
+    .nav-btn {
+        width: 100%;
+        text-align: left;
+        padding: 14px 16px;
+        font-size: 1rem;
+        font-weight: 600;
+        border-radius: var(--radius-md);
+        color: var(--text-body);
+    }
+    .nav-btn.active,
+    .nav-btn:hover {
+        background: rgba(59,91,219,0.07);
+        color: var(--color-sapphire);
+    }
+    .nav-btn::after { display: none; }
+
+    /* ---- Brand ---- */
+    .brand-logo  { height: 52px !important; }
+    .brand-name  { font-size: 1.05rem; }
+    .brand-tag   { display: none; }
+
+    /* ---- Main container ---- */
+    .main-container { padding: 16px 14px; }
+
+    /* ---- Page intro ---- */
+    .page-intro h2 { font-size: 1.5rem; }
+    .page-intro p  { font-size: 0.88rem; }
+
+    /* ---- Grids ---- */
+    .grid-3,
+    .grid-4,
+    .checklist-grid { grid-template-columns: 1fr; }
+
+    /* ---- Hero ---- */
+    .hero-text-card h1 { font-size: 1.45rem; }
+    .hero-btn-row      { flex-direction: column; gap: 10px; }
+    .hero-btn-row .btn { width: 100%; justify-content: center; }
+    .hero-stats-card   { padding: 16px; }
+    .stat-big-number   { font-size: 2.4rem; }
+
+    /* ---- Param cards ---- */
+    .param-val { font-size: 1.4rem; }
+
+    /* ---- Eval form ---- */
+    .form-card  { padding: 16px; }
+    .eval-layout { flex-direction: column; }
+
+    /* ---- Charts ---- */
+    .chart-canvas-wrap  { height: 180px; }
+    .charts-row         { grid-template-columns: 1fr; gap: 14px; }
+
+    /* ---- VA page ---- */
+    .va-header-row  { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .va-back-btn    { width: 100%; justify-content: center; }
+    .va-canvas-wrap { height: 220px; }
+    .va-canvas-wide { height: 200px; }
+    .va-kpi-strip   { grid-template-columns: 1fr 1fr; }
+
+    /* ---- Verdict ---- */
+    .verdict-metrics { flex-wrap: wrap; gap: 10px; }
+    .v-metric        { flex: 1 1 45%; min-width: 120px; }
+
+    /* ---- Buttons ---- */
+    .btn { min-height: 44px; }   /* WCAG touch target */
+
+    /* ---- Preset bar ---- */
+    .preset-bar     { flex-wrap: wrap; gap: 8px; }
+    .preset-group   { flex-wrap: wrap; gap: 6px; }
+    .btn-preset     { font-size: 0.78rem; padding: 7px 11px; }
+
+    /* ---- Guide grid ---- */
+    .guide-grid { grid-template-columns: 1fr; }
+
+    /* ---- Snippet tabs ---- */
+    .tab-buttons { flex-wrap: wrap; gap: 4px; }
+
+    /* ---- Math card ---- */
+    .math-meta-row { flex-wrap: wrap; gap: 8px; }
+
+    /* ---- Download card ---- */
+    .download-card { flex-direction: column; gap: 14px; }
+    .download-card .btn { width: 100%; justify-content: center; }
 }
+
+/* ── Small Mobile: 480px (Galaxy S25 Ultra portrait etc.) ──────────────── */
+@media (max-width: 480px) {
+    .main-container { padding: 12px 10px; }
+
+    .page-intro h2  { font-size: 1.28rem; }
+    .hero-text-card h1 { font-size: 1.25rem; }
+    .stat-big-number   { font-size: 2rem; }
+
+    .card { padding: 14px; border-radius: var(--radius-md); }
+
+    /* Charts — taller on narrow screens so data is still legible */
+    .chart-canvas-wrap  { height: 200px; }
+    .va-canvas-wrap     { height: 210px; }
+    .va-canvas-wide     { height: 190px; }
+
+    /* KPI strip stacks to single column */
+    .va-kpi-strip { grid-template-columns: 1fr; }
+    .va-kpi-value { font-size: 1.5rem; }
+
+    /* Verdict pill wraps */
+    .verdict-main  { flex-direction: column; align-items: flex-start; gap: 10px; }
+    .verdict-icon  { width: 44px; height: 44px; font-size: 1.1rem; }
+
+    /* Bulk table scrolls horizontally */
+    #bulkResultsPanel table { font-size: 0.78rem; }
+
+    /* Toast stays within screen */
+    .toast-container { right: 10px; bottom: 10px; left: 10px; }
+    .toast { max-width: 100%; }
+
+    /* Step list */
+    .step-item { flex-direction: column; gap: 8px; }
+
+    /* Math box scrolls */
+    .math-box { overflow-x: auto; }
+
+    /* Snippet boxes scroll */
+    .snippet-box pre { font-size: 0.72rem; }
+}
+
+/* ── High-DPI / Retina (Galaxy S25 Ultra 3088×1440 → ~3× DPR) ─────────── */
+@media (-webkit-min-device-pixel-ratio: 2.5), (min-resolution: 240dpi) {
+    .card          { box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 3px 12px rgba(59,91,219,0.07); }
+    .navbar-wrapper{ box-shadow: 0 1px 16px rgba(59,91,219,0.08); }
+    .brand-logo    { image-rendering: -webkit-optimize-contrast; }
+}
+
+/* ── Landscape phones ───────────────────────────────────────────────────── */
+@media (max-width: 900px) and (orientation: landscape) {
+    .navbar { padding: 6px 16px; }
+    .brand-logo { height: 40px !important; }
+    .main-container { padding: 10px 16px; }
+    .chart-canvas-wrap { height: 160px; }
+    .va-canvas-wrap    { height: 170px; }
+}
+
