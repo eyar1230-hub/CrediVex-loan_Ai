@@ -1,6 +1,6 @@
 ﻿/* ==========================================================================
    VISUAL ANALYTICS PAGE  — visual_analytics.css
-   Uses existing CrediNova CSS variables from style.css
+   Uses existing CREDIVEX CSS variables from style.css
    ========================================================================== */
 
 /* -- Page Header Row -------------------------------------------------------- */
@@ -165,4 +165,5 @@
     .va-canvas-wrap     { height: 240px; }
     .va-canvas-wide     { height: 220px; }
 }
+
 

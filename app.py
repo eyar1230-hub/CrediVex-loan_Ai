@@ -462,7 +462,7 @@ def api_download_template():
         output,
         mimetype='text/csv',
         as_attachment=True,
-        download_name='credinova_bulk_template.csv'
+        download_name='credivex_bulk_template.csv'
     )
 
 @app.route('/api/predict-bulk', methods=['POST'])
@@ -590,4 +590,5 @@ if __name__ == '__main__':
     debug = os.environ.get("DEBUG", "false").lower() == "true"
     print(f"[*] Starting Loan Approval SVC Server on http://localhost:{port}")
     app.run(host='0.0.0.0', port=port, debug=debug)
+
 
