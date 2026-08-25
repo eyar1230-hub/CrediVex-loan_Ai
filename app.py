@@ -494,74 +494,79 @@ def api_predict_bulk():
     results = []
     errors = []
     
-    for i, (_, row) in enumerate(df.iterrows()):
-        # Convert row to dictionary
-        data = row.to_dict()
-        row_num = i + 2 # +1 for 0-index, +1 for header
-        
-        validated_inputs, validation_errors = validate_and_extract_features(data)
-        
-        if validation_errors:
-            errors.append({
+    try:
+        for i, (_, row) in enumerate(df.iterrows()):
+            # Convert row to dictionary
+            data = row.to_dict()
+            row_num = i + 2 # +1 for 0-index, +1 for header
+            
+            validated_inputs, validation_errors = validate_and_extract_features(data)
+            
+            if validation_errors:
+                errors.append({
+                    "row": row_num,
+                    "messages": validation_errors
+                })
+                continue
+                
+            if pipeline is None:
+                errors.append({"row": row_num, "messages": ["ML Pipeline is not currently loaded."]})
+                continue
+                
+            # Inference
+            input_df = pd.DataFrame([[
+                validated_inputs['annual_income'],
+                validated_inputs['loan_amount'],
+                validated_inputs['credit_score'],
+                validated_inputs['debt_to_income_ratio'],
+                validated_inputs['years_employed'],
+                validated_inputs['delinquencies_last_2yrs']
+            ]], columns=FEATURE_NAMES)
+            
+            raw_pred = pipeline.predict(input_df)[0]
+            prediction_class = round(float(raw_pred))
+            is_approved = (prediction_class == 1)
+            prediction_label = "Approved" if is_approved else "Rejected"
+            
+            # Probabilities
+            if hasattr(pipeline, 'predict_proba'):
+                probas = pipeline.predict_proba(input_df)[0]
+                p_reject, p_approve = float(probas[0]), float(probas[1])
+            else:
+                p_approve = 0.90 if is_approved else 0.10
+                p_reject = 1.0 - p_approve
+                
+            # Risk Tier
+            if p_approve >= 0.80:
+                risk_tier = "Prime / Low Risk"
+            elif p_approve >= 0.50:
+                risk_tier = "Moderate Risk"
+            elif p_approve >= 0.25:
+                risk_tier = "High Risk"
+            else:
+                risk_tier = "Critical Risk"
+                
+            results.append({
                 "row": row_num,
-                "messages": validation_errors
+                "prediction": prediction_label,
+                "is_approved": is_approved,
+                "approval_percentage": f"{p_approve * 100:.1f}%",
+                "risk_tier": risk_tier,
+                "inputs": validated_inputs
             })
-            continue
             
-        if pipeline is None:
-            errors.append({"row": row_num, "messages": ["ML Pipeline is not currently loaded."]})
-            continue
-            
-        # Inference
-        input_df = pd.DataFrame([[
-            validated_inputs['annual_income'],
-            validated_inputs['loan_amount'],
-            validated_inputs['credit_score'],
-            validated_inputs['debt_to_income_ratio'],
-            validated_inputs['years_employed'],
-            validated_inputs['delinquencies_last_2yrs']
-        ]], columns=FEATURE_NAMES)
-        
-        raw_pred = pipeline.predict(input_df)[0]
-        prediction_class = round(float(raw_pred))
-        is_approved = (prediction_class == 1)
-        prediction_label = "Approved" if is_approved else "Rejected"
-        
-        # Probabilities
-        if hasattr(pipeline, 'predict_proba'):
-            probas = pipeline.predict_proba(input_df)[0]
-            p_reject, p_approve = float(probas[0]), float(probas[1])
-        else:
-            p_approve = 0.90 if is_approved else 0.10
-            p_reject = 1.0 - p_approve
-            
-        # Risk Tier
-        if p_approve >= 0.80:
-            risk_tier = "Prime / Low Risk"
-        elif p_approve >= 0.50:
-            risk_tier = "Moderate Risk"
-        elif p_approve >= 0.25:
-            risk_tier = "High Risk"
-        else:
-            risk_tier = "Critical Risk"
-            
-        results.append({
-            "row": row_num,
-            "prediction": prediction_label,
-            "is_approved": is_approved,
-            "approval_percentage": f"{p_approve * 100:.1f}%",
-            "risk_tier": risk_tier,
-            "inputs": validated_inputs
+        return jsonify({
+            "success": True,
+            "results": results,
+            "errors": errors,
+            "total_rows": len(df),
+            "valid_count": len(results),
+            "error_count": len(errors)
         })
-        
-    return jsonify({
-        "success": True,
-        "results": results,
-        "errors": errors,
-        "total_rows": len(df),
-        "valid_count": len(results),
-        "error_count": len(errors)
-    })
+    except Exception as e:
+        import traceback
+        traceback.print_exc()
+        return jsonify({"success": False, "error": f"Inference loop error: {str(e)}"}), 500
 
 
 
