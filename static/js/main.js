@@ -938,6 +938,7 @@ function renderVAScatterChart(results) {
                 }
             },
             plugins: {
+                title: { display: true, text: 'Decision Boundary: DTI vs Credit Score', color: '#1e293b', font: { family: 'Outfit', size: 16, weight: '600' } },
                 legend: { labels: { color: '#334155', font: { family: 'Inter', size: 11 }, usePointStyle: true } },
                 tooltip: {
                     backgroundColor: '#0f172a',
@@ -1004,10 +1005,12 @@ function renderVABarChart(results) {
             maintainAspectRatio: false,
             scales: {
                 x: {
+                    title: { display: true, text: 'Years Employed', color: '#64748b', font: { family: 'Inter', size: 11, weight: '600' } },
                     grid: { display: false },
                     ticks: { color: '#64748b', font: { family: 'Inter', size: 11, weight: '500' } }
                 },
                 y: {
+                    title: { display: true, text: 'Approval Rate (%)', color: '#64748b', font: { family: 'Inter', size: 11, weight: '600' } },
                     min: 0,
                     max: 100,
                     grid: { color: '#f1f5f9' },
@@ -1015,6 +1018,7 @@ function renderVABarChart(results) {
                 }
             },
             plugins: {
+                title: { display: true, text: 'Approval Rate by Employment Tenure', color: '#1e293b', font: { family: 'Outfit', size: 16, weight: '600' } },
                 legend: { display: false },
                 tooltip: {
                     backgroundColor: '#0f172a',
@@ -1088,17 +1092,20 @@ function renderVAHistogram(results) {
             maintainAspectRatio: false,
             scales: {
                 x: {
+                    title: { display: true, text: 'Loan Amount ($)', color: '#64748b', font: { family: 'Inter', size: 11, weight: '600' } },
                     stacked: false,
                     grid: { display: false },
                     ticks: { color: '#64748b', font: { family: 'Inter', size: 11, weight: '500' } }
                 },
                 y: {
+                    title: { display: true, text: 'Number of Applications', color: '#64748b', font: { family: 'Inter', size: 11, weight: '600' } },
                     beginAtZero: true,
                     grid: { color: '#f1f5f9' },
                     ticks: { color: '#64748b', precision: 0 }
                 }
             },
             plugins: {
+                title: { display: true, text: 'Loan Amount Distribution', color: '#1e293b', font: { family: 'Outfit', size: 16, weight: '600' } },
                 legend: { labels: { color: '#334155', font: { family: 'Inter', size: 11 }, usePointStyle: true } },
                 tooltip: {
                     backgroundColor: '#0f172a',
@@ -1121,92 +1128,34 @@ async function exportData(format) {
         return;
     }
 
-    if (format === 'excel') {
-        if (typeof XLSX === 'undefined') {
-            triggerToast("Excel library not loaded.", "error");
-            return;
-        }
-        const data = window.__bulkResults.map(r => ({
-            Row: r.row,
-            "Annual Income": r.inputs.annual_income,
-            "Loan Amount": r.inputs.loan_amount,
-            "Credit Score": r.inputs.credit_score,
-            "DTI": r.inputs.debt_to_income_ratio,
-            "Years Employed": r.inputs.years_employed,
-            "Delinquencies": r.inputs.delinquencies_last_2yrs,
-            Verdict: r.prediction,
-            "Approval %": r.approval_percentage,
-            "Risk Tier": r.risk_tier,
-            "Decision Margin": r.decision_margin
-        }));
-        const ws = XLSX.utils.json_to_sheet(data);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, "Evaluation Results");
-        XLSX.writeFile(wb, "Credivex_Evaluation_Results.xlsx");
-        triggerToast("Excel export complete.", "success");
-    } else if (format === 'ppt') {
-        if (typeof PptxGenJS === 'undefined') {
-            triggerToast("PowerPoint library not loaded.", "error");
-            return;
-        }
-        triggerToast("Generating PowerPoint...", "info");
-        
-        let pptx = new PptxGenJS();
-        pptx.layout = 'LAYOUT_16x9';
-
-        let slide1 = pptx.addSlide();
-        slide1.addText("CREDIVEX - Evaluation Results", { x: 1, y: 1, w: 8, fontSize: 36, bold: true, color: '059669' });
-        slide1.addText(`Total Processed: ${window.__bulkResults.length}`, { x: 1, y: 2, fontSize: 18, color: '334155' });
-        
-        // Ensure charts are rendered
-        if (document.getElementById('page-visual-analytics').classList.contains('active') === false) {
-            switchPage('page-visual-analytics', false);
-        }
-        loadVisualAnalytics();
-        
-        // Wait for Chart.js animation
-        await new Promise(r => setTimeout(r, 800));
-
-        const canvasScatter = document.getElementById('vaScatterChart');
-        const canvasBar = document.getElementById('vaBarChart');
-        const canvasHist = document.getElementById('vaHistogramChart');
-        
-        if (canvasScatter && canvasBar) {
-            let slide2 = pptx.addSlide();
-            slide2.addText("Visual Analytics (1)", { x: 0.5, y: 0.5, fontSize: 24, bold: true });
-            try {
-                slide2.addImage({ data: canvasScatter.toDataURL('image/png', 1.0), x: 0.5, y: 1.5, w: 4.5, h: 3 });
-                slide2.addImage({ data: canvasBar.toDataURL('image/png', 1.0), x: 5.2, y: 1.5, w: 4.5, h: 3 });
-            } catch(e) { console.error("Chart export error", e); }
-        }
-        
-        if (canvasHist) {
-            let slide3 = pptx.addSlide();
-            slide3.addText("Visual Analytics (2)", { x: 0.5, y: 0.5, fontSize: 24, bold: true });
-            try {
-                slide3.addImage({ data: canvasHist.toDataURL('image/png', 1.0), x: 0.5, y: 1.5, w: 9, h: 3.5 });
-            } catch(e) { console.error("Chart export error", e); }
-        }
-        
-        // Add Data Table Slide (up to 50 rows)
-        let slide4 = pptx.addSlide();
-        slide4.addText("Data Summary (First 50 Rows)", { x: 0.5, y: 0.5, fontSize: 24, bold: true });
-        let tableData = [["Row", "Income", "Loan", "Score", "Verdict", "Approval %"]];
-        window.__bulkResults.slice(0, 50).forEach(r => {
-            tableData.push([
-                r.row.toString(), 
-                "$" + r.inputs.annual_income.toLocaleString(), 
-                "$" + r.inputs.loan_amount.toLocaleString(), 
-                r.inputs.credit_score.toString(), 
-                r.prediction, 
-                r.approval_percentage
-            ]);
+    triggerToast(`Generating ${format.toUpperCase()} report...`, "info");
+    
+    try {
+        const endpoint = format === 'excel' ? '/api/export-excel' : '/api/export-ppt';
+        const response = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(window.__bulkResults)
         });
-        slide4.addTable(tableData, { x: 0.5, y: 1.2, w: 9, fontSize: 10, border: {type: 'solid', color: 'cccccc'} });
-
-        pptx.writeFile({ fileName: "Credivex_Evaluation_Results.pptx" })
-            .then(() => triggerToast("PowerPoint export complete.", "success"))
-            .catch(err => triggerToast("PPT Export failed.", "error"));
+        
+        if (!response.ok) {
+            throw new Error(`Server returned ${response.status}`);
+        }
+        
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = format === 'excel' ? 'Credivex_Evaluation_Results.xlsx' : 'Credivex_Evaluation_Results.pptx';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+        
+        triggerToast(`${format.toUpperCase()} export complete.`, "success");
+    } catch (err) {
+        console.error("Export error:", err);
+        triggerToast("Export failed. See console for details.", "error");
     }
 }
 

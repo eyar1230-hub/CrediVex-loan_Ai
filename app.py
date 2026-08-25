@@ -1,4 +1,4 @@
-﻿import io
+import io
 import csv
 import os
 import traceback
@@ -583,6 +583,40 @@ def api_predict_bulk():
         return jsonify({"success": False, "error": f"Inference error: {str(e)}"}), 500
 
 
+
+from report_generator import generate_excel_report, generate_ppt_report
+
+@app.route('/api/export-excel', methods=['POST'])
+def api_export_excel():
+    data = request.json
+    if not data or not isinstance(data, list):
+        return jsonify({"success": False, "error": "Invalid data format."}), 400
+    try:
+        output = generate_excel_report(data)
+        return send_file(
+            output,
+            mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            as_attachment=True,
+            download_name='Credivex_Evaluation_Results.xlsx'
+        )
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route('/api/export-ppt', methods=['POST'])
+def api_export_ppt():
+    data = request.json
+    if not data or not isinstance(data, list):
+        return jsonify({"success": False, "error": "Invalid data format."}), 400
+    try:
+        output = generate_ppt_report(data)
+        return send_file(
+            output,
+            mimetype='application/vnd.openxmlformats-officedocument.presentationml.presentation',
+            as_attachment=True,
+            download_name='Credivex_Evaluation_Results.pptx'
+        )
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
 
 # 3. Server Entry Point
 if __name__ == '__main__':
