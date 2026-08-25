@@ -809,7 +809,7 @@ async function handleBulkUpload(event) {
 }
 
 /* ==========================================================================
-   VISUAL ANALYTICS ג€” Page 4
+   VISUAL ANALYTICS - Page 4
    Reads from the last bulk upload result stored in window.__bulkResults.
    Called by "View Data Analytics" button and by switchPage when navigating
    to page-visual-analytics.
@@ -981,7 +981,7 @@ function renderVABarChart(results) {
 
     const rates = totals.map((t, i) => t > 0 ? parseFloat(((approvals[i] / t) * 100).toFixed(1)) : 0);
 
-    // Colour each bar by rate: green ג‰¥ 60 %, orange 40ג€“59 %, red < 40 %
+    // Colour each bar by rate: green >= 60 %, orange 40-59 %, red < 40 %
     const barColors = rates.map(v =>
         v >= 60 ? 'rgba(5,150,105,0.82)'  :
         v >= 40 ? 'rgba(234,88,12,0.82)'  :
@@ -1035,7 +1035,7 @@ function renderVABarChart(results) {
 }
 
 /* -------------------------------------------------------------------------- */
-/* Histogram: Loan Amount distribution ג€” Approved vs Denied                   */
+/* Histogram: Loan Amount distribution - Approved vs Denied                   */
 /* -------------------------------------------------------------------------- */
 function renderVAHistogram(results) {
     const canvas = document.getElementById('vaHistogramChart');
