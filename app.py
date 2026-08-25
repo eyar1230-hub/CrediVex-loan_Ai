@@ -483,6 +483,15 @@ def api_predict_bulk():
             df = pd.read_excel(file.stream)
         else:
             return jsonify({"success": False, "error": "Unsupported file format. Please upload a .csv or .xlsx file."}), 400
+            
+        # Clean up empty/incomplete rows that cause NaN errors in the ML pipeline
+        # Drop rows where ALL values are missing (like trailing commas ',,,,,')
+        df = df.dropna(how='all')
+        
+        # Fill remaining missing values with a dummy string to trigger the validation errors properly
+        # instead of passing NaNs to the model
+        df = df.fillna("")
+        
     except Exception as e:
         return jsonify({"success": False, "error": f"Error reading file: {str(e)}"}), 400
         
