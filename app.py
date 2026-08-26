@@ -371,8 +371,8 @@ def api_predict():
             p_reject = float(probas[0])
             p_approve = float(probas[1])
             
-            # NEW THRESHOLD LOGIC: Require 75% confidence
-            is_approved = (p_approve >= 0.75)
+            # Approval threshold: require 80% confidence
+            is_approved = (p_approve >= 0.80)
             prediction_class = 1 if is_approved else 0
         except Exception:
             # Fallback if model doesn't support predict_proba
@@ -574,8 +574,8 @@ def api_predict_bulk():
                 # Probabilities and strict 75% threshold
                 if probas is not None:
                     p_reject, p_approve = float(probas[idx][0]), float(probas[idx][1])
-                    # NEW THRESHOLD LOGIC: Require 75% confidence
-                    is_approved = (p_approve >= 0.75)
+                    # Approval threshold: require 80% confidence
+                    is_approved = (p_approve >= 0.80)
                     prediction_class = 1 if is_approved else 0
                 else:
                     raw_pred = raw_preds[idx]
