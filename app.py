@@ -364,21 +364,25 @@ def api_predict():
                 "error": "ML Pipeline is not currently loaded on the server."
             }), 503
 
-        # Model Inference
-        raw_pred = pipeline.predict(input_df)[0]
-        prediction_class = round(float(raw_pred))
-        is_approved = (prediction_class == 1)
-        prediction_label = "Approved" if is_approved else "Rejected"
-
-        # Probability Estimation
+        # Probability Estimation and strict 75% threshold
         try:
             probas = pipeline.predict_proba(input_df)[0]
             # Match classes: [0, 1]
             p_reject = float(probas[0])
             p_approve = float(probas[1])
+            
+            # NEW THRESHOLD LOGIC: Require 75% confidence
+            is_approved = (p_approve >= 0.75)
+            prediction_class = 1 if is_approved else 0
         except Exception:
+            # Fallback if model doesn't support predict_proba
+            raw_pred = pipeline.predict(input_df)[0]
+            prediction_class = round(float(raw_pred))
+            is_approved = (prediction_class == 1)
             p_approve = 0.90 if is_approved else 0.10
             p_reject = 1.0 - p_approve
+            
+        prediction_label = "Approved" if is_approved else "Rejected"
 
         # Decision Function Margin
         decision_margin = 0.0
@@ -560,25 +564,28 @@ def api_predict_bulk():
             # Batch Inference (1000x faster than calling .predict() in a loop)
             input_df = pd.DataFrame(valid_inputs_list, columns=FEATURE_NAMES)
             
-            raw_preds = pipeline.predict(input_df)
             probas = pipeline.predict_proba(input_df) if hasattr(pipeline, 'predict_proba') else None
+            raw_preds = pipeline.predict(input_df) if probas is None else None
             
             for idx in range(len(valid_inputs_list)):
                 row_num = valid_indices[idx]
                 val_inputs = valid_inputs_list[idx]
                 
-                raw_pred = raw_preds[idx]
-                prediction_class = round(float(raw_pred))
-                is_approved = (prediction_class == 1)
-                prediction_label = "Approved" if is_approved else "Rejected"
-                
-                # Probabilities
+                # Probabilities and strict 75% threshold
                 if probas is not None:
                     p_reject, p_approve = float(probas[idx][0]), float(probas[idx][1])
+                    # NEW THRESHOLD LOGIC: Require 75% confidence
+                    is_approved = (p_approve >= 0.75)
+                    prediction_class = 1 if is_approved else 0
                 else:
+                    raw_pred = raw_preds[idx]
+                    prediction_class = round(float(raw_pred))
+                    is_approved = (prediction_class == 1)
                     p_approve = 0.90 if is_approved else 0.10
                     p_reject = 1.0 - p_approve
                     
+                prediction_label = "Approved" if is_approved else "Rejected"
+                
                 # Risk Tier
                 if p_approve >= 0.80:
                     risk_tier = "Prime / Low Risk"
