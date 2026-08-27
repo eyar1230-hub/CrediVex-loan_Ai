@@ -119,11 +119,11 @@
                         </div>
                         <div class="q-stat-item">
                             <span>Kernel Gamma (־³)</span>
-                            <strong>0.800</strong>
+                            <strong>0.200</strong>
                         </div>
                         <div class="q-stat-item">
                             <span>Support Vectors</span>
-                            <strong>15,003</strong>
+                            <strong>14,794</strong>
                         </div>
                     </div>
                 </div>
@@ -195,14 +195,14 @@
             <div class="grid-4">
                 <div class="card param-card">
                     <span class="param-title">ROC AUC Score</span>
-                    <div class="param-val text-green" id="cardRocAuc">0.8977</div>
-                    <span class="param-sub" id="cardRocAucPercent">89.77% Validation Accuracy</span>
+                    <div class="param-val text-green" id="cardRocAuc">0.9146</div>
+                    <span class="param-sub" id="cardRocAucPercent">91.46% Validation Accuracy</span>
                 </div>
 
                 <div class="card param-card">
                     <span class="param-title">Kernel Family</span>
                     <div class="param-val text-turquoise" id="cardKernelType">RBF (Radial)</div>
-                    <span class="param-sub" id="cardGamma">Gamma (־³): 0.800</span>
+                    <span class="param-sub" id="cardGamma">Gamma (־³): 0.200</span>
                 </div>
 
                 <div class="card param-card">
@@ -213,8 +213,8 @@
 
                 <div class="card param-card">
                     <span class="param-title">Support Vectors</span>
-                    <div class="param-val text-orange" id="cardTotalSV">15,003</div>
-                    <span class="param-sub" id="cardSVBreakdown">Class 0: 7,440 | Class 1: 7,563</span>
+                    <div class="param-val text-orange" id="cardTotalSV">14,794</div>
+                    <span class="param-sub" id="cardSVBreakdown">Class 0: 5,217 | Class 1: 9,577</span>
                 </div>
             </div>
 
@@ -230,8 +230,8 @@
                     <code>f(x) = sign(&sum; &alpha;<sub>i</sub> &bull; y<sub>i</sub> &bull; exp(-&gamma; ||x<sub>i</sub> - x||<sup>2</sup>) + b)</code>
                 </div>
                 <div class="math-meta-row">
-                    <span><strong>Intercept (b):</strong> <code id="mathIntercept">-0.344238</code></span>
-                    <span><strong>Gamma (־³):</strong> <code id="mathGamma">0.800</code></span>
+                    <span><strong>Intercept (b):</strong> <code id="mathIntercept">-1.3422</code></span>
+                    <span><strong>Gamma (־³):</strong> <code id="mathGamma">0.200</code></span>
                     <span><strong>C Penalty:</strong> <code id="mathC">7.308</code></span>
                     <span><strong>Scaler:</strong> <code>StandardScaler</code></span>
                 </div>
@@ -478,6 +478,17 @@
                         </div>
                     </div>
 
+                    <div id="bulkLoading" style="display: none; width: 100%; margin-top: 20px; text-align: left;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span style="font-weight: 600; color: var(--color-sapphire);"><i class="fa-solid fa-gears"></i> Processing Data...</span>
+                            <span id="bulkProgressText" style="font-weight: bold; color: var(--color-sapphire);">0%</span>
+                        </div>
+                        <div style="width: 100%; background-color: #e2e8f0; border-radius: 999px; height: 12px; overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);">
+                            <div id="bulkProgressBar" style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--color-sapphire), var(--color-turquoise)); border-radius: 999px; transition: width 0.4s ease;"></div>
+                        </div>
+                        <p id="bulkProgressDetail" style="font-size: 0.85em; color: var(--text-muted); margin-top: 8px;">Initializing...</p>
+                    </div>
+
                     <div style="text-align: left; background: #1e293b; color: #f8fafc; padding: 15px; border-radius: 6px; margin-bottom: 20px;">
                         <h5 style="margin-top: 0; margin-bottom: 10px; color: #94a3b8;"><i class="fa-solid fa-code"></i> Generate Valid CSV Code</h5>
                         <pre style="margin: 0; font-family: 'JetBrains Mono', monospace; font-size: 0.85em; overflow-x: auto;">
@@ -494,17 +505,6 @@ df = pd.DataFrame(columns=features)
 df.to_csv('bulk_evaluation.csv', index=False)
                         </pre>
                     </div>
-                    
-                    <div id="bulkLoading" style="display: none; width: 100%; margin-top: 20px; text-align: left;">
-                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-                            <span style="font-weight: 600; color: var(--color-sapphire);"><i class="fa-solid fa-gears"></i> Processing Data...</span>
-                            <span id="bulkProgressText" style="font-weight: bold; color: var(--color-sapphire);">0%</span>
-                        </div>
-                        <div style="width: 100%; background-color: #e2e8f0; border-radius: 999px; height: 12px; overflow: hidden; box-shadow: inset 0 1px 2px rgba(0,0,0,0.1);">
-                            <div id="bulkProgressBar" style="height: 100%; width: 0%; background: linear-gradient(90deg, var(--color-sapphire), var(--color-turquoise)); border-radius: 999px; transition: width 0.4s ease;"></div>
-                        </div>
-                        <p id="bulkProgressDetail" style="font-size: 0.85em; color: var(--text-muted); margin-top: 8px;">Initializing...</p>
-                    </div>
 
                 </div>
                 
@@ -518,14 +518,8 @@ df.to_csv('bulk_evaluation.csv', index=False)
                     <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; margin-bottom:12px;">
                         <h3 style="margin:0;">Evaluation Results (<span id="bulkValidCount">0</span> processed)</h3>
                         <div style="display: flex; gap: 8px;">
-                            <button class="btn btn-secondary btn-sm" onclick="exportData('excel')">
-                                <i class="fa-solid fa-file-excel"></i> Export Excel
-                            </button>
-                            <button class="btn btn-secondary btn-sm" onclick="exportData('ppt')">
-                                <i class="fa-solid fa-file-powerpoint"></i> Export PPT
-                            </button>
-                            <button class="btn btn-secondary btn-sm" onclick="exportEvaluationCsv()">
-                                <i class="fa-solid fa-file-csv"></i> Download CSV Data
+                            <button class="btn btn-primary btn-sm" onclick="switchPage('page-downloads')">
+                                <i class="fa-solid fa-download"></i> Downloads
                             </button>
                             <button class="btn btn-secondary btn-sm" onclick="switchPage('page-visual-analytics'); loadVisualAnalytics();">
                                 <i class="fa-solid fa-chart-column"></i> View Analytics
@@ -677,7 +671,7 @@ df.to_csv('bulk_evaluation.csv', index=False)
                         <div class="meta-tags">
                             <span>Size: 998.9 KB</span>
                             <span>Python: 3.10</span>
-                            <span>ROC-AUC: 0.8977</span>
+                            <span>ROC-AUC: 0.9146</span>
                         </div>
                     </div>
                 </div>
@@ -705,7 +699,7 @@ df.to_csv('bulk_evaluation.csv', index=False)
                             <div class="step-num">2</div>
                             <div class="step-info">
                                 <strong>SVC (RBF Kernel)</strong>
-                                <p>Evaluates standardized features against 15,003 support vectors using $C=7.308$ and $\gamma=0.8$.</p>
+                                <p>Evaluates standardized features against 14,794 support vectors using $C=7.308$ and $\gamma=0.2$.</p>
                             </div>
                         </div>
 

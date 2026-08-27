@@ -114,9 +114,9 @@ def extract_model_info():
             "status": "Model Not Loaded",
             "kernel_type": "rbf",
             "calculation_function": "f(x) = sign( sum(alpha_i * y_i * exp(-gamma * ||x_i - x||^2)) + b )",
-            "intercept_b": -0.3442,
-            "total_support_vectors": 15003,
-            "gamma": 0.8,
+            "intercept_b": -1.3422,
+            "total_support_vectors": 14794,
+            "gamma": 0.2,
             "C_regularization": 7.308,
             "class_weight": "{0: 1.0, 1: 1.0}",
             "scaling_step": "StandardScaler(with_mean=True, with_std=True)",
@@ -127,9 +127,9 @@ def extract_model_info():
         svc_engine = pipeline.named_steps.get('svc')
         scaler_step = pipeline.named_steps.get('scaler')
 
-        intercept_val = float(svc_engine.intercept_[0]) if hasattr(svc_engine, 'intercept_') else -0.3442
-        n_sv = sum(svc_engine.n_support_) if hasattr(svc_engine, 'n_support_') else 15003
-        n_sv_per_class = [int(x) for x in svc_engine.n_support_] if hasattr(svc_engine, 'n_support_') else [7440, 7563]
+        intercept_val = float(svc_engine.intercept_[0]) if hasattr(svc_engine, 'intercept_') else -1.3422
+        n_sv = sum(svc_engine.n_support_) if hasattr(svc_engine, 'n_support_') else 14794
+        n_sv_per_class = [int(x) for x in svc_engine.n_support_] if hasattr(svc_engine, 'n_support_') else [5217, 9577]
         gamma_val = float(svc_engine.gamma) if isinstance(svc_engine.gamma, (int, float)) else str(svc_engine.gamma)
         c_val = float(svc_engine.C) if hasattr(svc_engine, 'C') else 7.308
 
@@ -157,8 +157,8 @@ def extract_model_info():
             "kernel_type": "rbf",
             "calculation_function": "f(x) = sign( sum(alpha_i * y_i * exp(-gamma * ||x_i - x||^2)) + b )",
             "intercept_b": -0.344238,
-            "total_support_vectors": 15003,
-            "gamma": 0.8,
+            "total_support_vectors": 14794,
+            "gamma": 0.2,
             "C_regularization": 7.308,
             "error": str(e)
         }
