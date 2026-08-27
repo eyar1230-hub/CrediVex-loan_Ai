@@ -772,6 +772,7 @@ async function handleBulkUpload(event) {
         if (data.results && data.results.length > 0) {
             // Store results globally so Visual Analytics page can render charts
             window.__bulkResults = data.results;
+            loadVisualAnalytics();
 
             resultsPanel.style.display = 'block';
             validCount.innerText = data.valid_count;
@@ -1225,7 +1226,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // CSV Export function
 async function exportEvaluationCsv() {
-    if (!window.bulkResultsData || window.bulkResultsData.length === 0) {
+    if (!window.__bulkResults || window.__bulkResults.length === 0) {
         alert("No evaluation data to export.");
         return;
     }
@@ -1233,7 +1234,7 @@ async function exportEvaluationCsv() {
         const response = await fetch('/api/export-evaluation-csv', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(window.bulkResultsData)
+            body: JSON.stringify(window.__bulkResults)
         });
         
         if (!response.ok) throw new Error("Failed to generate CSV export");

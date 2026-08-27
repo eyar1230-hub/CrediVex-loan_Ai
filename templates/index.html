@@ -39,8 +39,8 @@
                 <li><button class="nav-btn" data-target="page-model-data">Model Data</button></li>
                 <li><button class="nav-btn" data-target="page-evaluation">Evaluation Hub</button></li>
                 <li><button class="nav-btn" data-target="page-visual-analytics">Visual Analytics</button></li>
-                <li><button class="nav-btn" data-target="page-developer">Developer & SDK</button></li>
                 <li><button class="nav-btn" data-target="page-downloads">Download Center</button></li>
+                <li><button class="nav-btn" data-target="page-developer">Developer & SDK</button></li>
             </ul>
 
             <div class="nav-actions">
@@ -646,14 +646,66 @@ df.to_csv('bulk_evaluation.csv', index=False)
 
         </section>
 
+        
+
+
+        
+    <!-- ================================================================= -->
+        <!-- PAGE 5: DOWNLOADS                                                 -->
         <!-- ================================================================= -->
-        <!-- PAGE 5: DEVELOPER & SDK                                           -->
+        <section id="page-downloads" class="page-section">
+            <div class="page-intro">
+                <div class="intro-tag">📥 Page 5: Download Analytics & Visual Reports</div>
+                <div class="page-title-wrap">
+                    <div class="page-title-icon-box" style="background: #e0f2fe; color: #0284c7;"><i class="fa-solid fa-cloud-arrow-down"></i></div>
+                    <h2>Download Analytics & Visual Reports</h2>
+                </div>
+                <p>Access downloadable reports, evaluation data, and developer models.</p>
+            </div>
+
+            <div class="grid-3">
+                <!-- Evaluation Reports -->
+                <div class="card" style="padding: 20px;">
+                    <h3><i class="fa-solid fa-file-excel" style="color: #059669;"></i> Excel Report</h3>
+                    <p style="font-size: 0.9em; color: var(--text-muted); margin-bottom: 15px;">Detailed portfolio analysis including evaluation results, decision boundaries, and demographic breakdown charts embedded natively.</p>
+                    <button class="btn btn-outline" style="width: 100%;" onclick="exportData('excel')">Download Excel Report</button>
+                </div>
+
+                <div class="card" style="padding: 20px;">
+                    <h3><i class="fa-solid fa-file-powerpoint" style="color: #ea580c;"></i> PowerPoint Presentation</h3>
+                    <p style="font-size: 0.9em; color: var(--text-muted); margin-bottom: 15px;">Executive summary slides featuring the CREDIVEX brand logo, KPIs, and visualization charts for stakeholder meetings.</p>
+                    <button class="btn btn-outline" style="width: 100%;" onclick="exportData('ppt')">Download Presentation</button>
+                </div>
+
+                <div class="card" style="padding: 20px;">
+                    <h3><i class="fa-solid fa-file-csv" style="color: #475569;"></i> Raw CSV Evaluation Data</h3>
+                    <p style="font-size: 0.9em; color: var(--text-muted); margin-bottom: 15px;">The raw data output from the bulk evaluation, including predicted verdicts, confidence percentages, and risk tiers.</p>
+                    <button class="btn btn-outline" style="width: 100%;" onclick="exportEvaluationCsv()">Download Evaluation CSV</button>
+                </div>
+
+                <!-- Developer Models -->
+                <div class="card" style="padding: 20px;">
+                    <h3><i class="fa-solid fa-brain" style="color: #6366f1;"></i> Model Artifact (.pkl)</h3>
+                    <p style="font-size: 0.9em; color: var(--text-muted); margin-bottom: 15px;">The trained scikit-learn SVC model pipeline. Download this file to deploy the model in your own Python environments or servers.</p>
+                    <a href="/api/download-model" class="btn btn-outline" style="width: 100%; display: inline-block; text-align: center; text-decoration: none;">Download Model</a>
+                </div>
+
+                <div class="card" style="padding: 20px;">
+                    <h3><i class="fa-brands fa-python" style="color: #eab308;"></i> Jupyter Notebook</h3>
+                    <p style="font-size: 0.9em; color: var(--text-muted); margin-bottom: 15px;">The original training notebook containing data processing, SVC hyperparameter tuning, evaluation metrics, and docstrings.</p>
+                    <a href="/api/download-notebook" class="btn btn-outline" style="width: 100%; display: inline-block; text-align: center; text-decoration: none;">Download Notebook</a>
+                </div>
+            </div>
+        </section>
+
+<!-- ================================================================= -->
+        <!-- PAGE 6: DEVELOPER & SDK                                           -->
         <!-- ================================================================= -->
         <section id="page-developer" class="page-section">
             
             <!-- Page Intro Header -->
             <div class="page-intro">
-                <div class="intro-tag">🛠️ Page 5: Developer & Architecture</div>
+                <div class="intro-tag">🛠️ Page 6: Developer & Architecture</div>
                 <div class="page-title-wrap">
                     <div class="page-title-icon-box icon-box-dev"><i class="fa-solid fa-code"></i></div>
                     <h2>Pipeline Architecture & Model Download</h2>
@@ -776,56 +828,7 @@ console.log(data.prediction, data.approval_percentage);</code></pre>
 
             </div>
         </section>
-
-
-        <!-- ================================================================= -->
-        <!-- PAGE 5: DOWNLOADS                                                 -->
-        <!-- ================================================================= -->
-        <section id="page-downloads" class="page-section">
-            <div class="page-intro">
-                <div class="intro-tag">📥 Page 5: Download Analytics & Visual Reports</div>
-                <div class="page-title-wrap">
-                    <div class="page-title-icon-box" style="background: #e0f2fe; color: #0284c7;"><i class="fa-solid fa-cloud-arrow-down"></i></div>
-                    <h2>Download Analytics & Visual Reports</h2>
-                </div>
-                <p>Access downloadable reports, evaluation data, and developer models.</p>
-            </div>
-
-            <div class="grid-3">
-                <!-- Evaluation Reports -->
-                <div class="card" style="padding: 20px;">
-                    <h3><i class="fa-solid fa-file-excel" style="color: #059669;"></i> Excel Report</h3>
-                    <p style="font-size: 0.9em; color: var(--text-muted); margin-bottom: 15px;">Detailed portfolio analysis including evaluation results, decision boundaries, and demographic breakdown charts embedded natively.</p>
-                    <button class="btn btn-outline" style="width: 100%;" onclick="exportData('excel')">Download Excel Report</button>
-                </div>
-
-                <div class="card" style="padding: 20px;">
-                    <h3><i class="fa-solid fa-file-powerpoint" style="color: #ea580c;"></i> PowerPoint Presentation</h3>
-                    <p style="font-size: 0.9em; color: var(--text-muted); margin-bottom: 15px;">Executive summary slides featuring the CREDIVEX brand logo, KPIs, and visualization charts for stakeholder meetings.</p>
-                    <button class="btn btn-outline" style="width: 100%;" onclick="exportData('ppt')">Download Presentation</button>
-                </div>
-
-                <div class="card" style="padding: 20px;">
-                    <h3><i class="fa-solid fa-file-csv" style="color: #475569;"></i> Raw CSV Evaluation Data</h3>
-                    <p style="font-size: 0.9em; color: var(--text-muted); margin-bottom: 15px;">The raw data output from the bulk evaluation, including predicted verdicts, confidence percentages, and risk tiers.</p>
-                    <button class="btn btn-outline" style="width: 100%;" onclick="exportEvaluationCsv()">Download Evaluation CSV</button>
-                </div>
-
-                <!-- Developer Models -->
-                <div class="card" style="padding: 20px;">
-                    <h3><i class="fa-solid fa-brain" style="color: #6366f1;"></i> Model Artifact (.pkl)</h3>
-                    <p style="font-size: 0.9em; color: var(--text-muted); margin-bottom: 15px;">The trained scikit-learn SVC model pipeline. Download this file to deploy the model in your own Python environments or servers.</p>
-                    <a href="/api/download-model" class="btn btn-outline" style="width: 100%; display: inline-block; text-align: center; text-decoration: none;">Download Model</a>
-                </div>
-
-                <div class="card" style="padding: 20px;">
-                    <h3><i class="fa-brands fa-python" style="color: #eab308;"></i> Jupyter Notebook</h3>
-                    <p style="font-size: 0.9em; color: var(--text-muted); margin-bottom: 15px;">The original training notebook containing data processing, SVC hyperparameter tuning, evaluation metrics, and docstrings.</p>
-                    <a href="/api/download-notebook" class="btn btn-outline" style="width: 100%; display: inline-block; text-align: center; text-decoration: none;">Download Notebook</a>
-                </div>
-            </div>
-        </section>
-    </main>
+</main>
 
     <!-- TOAST NOTIFICATIONS -->
     <div class="toast-container" id="toastContainer"></div>
