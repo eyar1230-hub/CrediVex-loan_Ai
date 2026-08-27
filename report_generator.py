@@ -564,6 +564,12 @@ def generate_ppt_report(results):
             k_tf.paragraphs[0].alignment = PP_ALIGN.CENTER
             k_tf.paragraphs[1].alignment = PP_ALIGN.CENTER
 
+    # Add logo to all slides (CREDIVEX branding)
+    if os.path.exists(LOGO_PATH):
+        for s in prs.slides:
+            # Place in the top right corner
+            s.shapes.add_picture(LOGO_PATH, Inches(11.3), Inches(0.2), height=Inches(0.6))
+
     output = io.BytesIO()
     prs.save(output)
     output.seek(0)

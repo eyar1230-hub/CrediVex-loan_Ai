@@ -20,7 +20,7 @@ MODEL_FILENAME = 'loan_svc_project_2.pkl'
 MODEL_PATH = os.path.join(BASE_DIR, MODEL_FILENAME)
 
 # Hardcoded reference stats from the trained winning model
-ROC_AUC_SCORE = 0.8977
+ROC_AUC_SCORE = 0.9146
 MODEL_STATUS = "Production Ready"
 
 # Ordered list of features expected by the scikit-learn pipeline
@@ -649,6 +649,63 @@ def api_export_ppt():
         )
     except Exception as e:
         return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route('/api/export-evaluation-csv', methods=['POST'])
+def api_export_evaluation_csv():
+    data = request.get_json(force=True, silent=True)
+    if not data or not isinstance(data, list):
+        return jsonify({"success": False, "error": "Invalid data format."}), 400
+    try:
+        si = io.StringIO()
+        cw = csv.writer(si)
+        # Write header
+        cw.writerow([
+            'Row', 'Annual Income', 'Loan Amount', 'Credit Score',
+            'DTI', 'Years Employed', 'Delinquencies',
+            'Verdict', 'Approval %', 'Risk Tier'
+        ])
+        for res in data:
+            inputs = res.get('inputs', {})
+            cw.writerow([
+                res.get('row', ''),
+                inputs.get('annual_income', ''),
+                inputs.get('loan_amount', ''),
+                inputs.get('credit_score', ''),
+                inputs.get('debt_to_income_ratio', ''),
+                inputs.get('years_employed', ''),
+                inputs.get('delinquencies_last_2yrs', ''),
+                res.get('prediction', ''),
+                res.get('approval_percentage', ''),
+                res.get('risk_tier', '')
+            ])
+        
+        output = io.BytesIO()
+        output.write(si.getvalue().encode('utf-8'))
+        output.seek(0)
+        
+        return send_file(
+            output,
+            mimetype='text/csv',
+            as_attachment=True,
+            download_name='Credivex_Evaluation_Results.csv'
+        )
+    except Exception as e:
+        return jsonify({"success": False, "error": str(e)}), 500
+
+@app.route('/api/download-notebook', methods=['GET'])
+def api_download_notebook():
+    """
+    Allows downloading the project Jupyter notebook.
+    """
+    notebook_path = os.path.join(BASE_DIR, 'Project_Loan_final.ipynb')
+    if os.path.exists(notebook_path):
+        return send_file(
+            notebook_path,
+            as_attachment=True,
+            download_name='Project_Loan_final.ipynb',
+            mimetype='application/x-ipynb+json'
+        )
+    return jsonify({"error": "Notebook file not found on server."}), 404
 
 # 3. Server Entry Point
 if __name__ == '__main__':

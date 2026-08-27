@@ -1161,3 +1161,93 @@ async function exportData(format) {
 
 
 
+
+// Drag and drop logic & file validation
+document.addEventListener('DOMContentLoaded', () => {
+    const dropZone = document.getElementById('dropZone');
+    const bulkFileInput = document.getElementById('bulkFileInput');
+    if (!dropZone || !bulkFileInput) return;
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.style.backgroundColor = '#e2e8f0';
+            dropZone.style.borderColor = '#2563eb';
+        }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropZone.addEventListener(eventName, () => {
+            dropZone.style.backgroundColor = '#f8fafc';
+            dropZone.style.borderColor = 'var(--color-sapphire)';
+        }, false);
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        if (files.length > 0) {
+            handleFiles(files);
+        }
+    }, false);
+
+    bulkFileInput.addEventListener('change', (e) => {
+        if (e.target.files.length > 0) {
+            handleFiles(e.target.files);
+        }
+    });
+
+    function handleFiles(files) {
+        const file = files[0];
+        const validExtensions = ['.csv', '.xls', '.xlsx'];
+        const fileName = file.name.toLowerCase();
+        const isValid = validExtensions.some(ext => fileName.endsWith(ext));
+
+        if (!isValid) {
+            alert('Warning: Unapproved file type. Please upload a .csv or .xlsx file.');
+            bulkFileInput.value = ''; // clear input
+            return;
+        }
+
+        // Trigger bulk upload logic manually since we might intercept the drop
+        const pseudoEvent = { target: { files: [file] } };
+        handleBulkUpload(pseudoEvent);
+    }
+});
+
+// CSV Export function
+async function exportEvaluationCsv() {
+    if (!window.bulkResultsData || window.bulkResultsData.length === 0) {
+        alert("No evaluation data to export.");
+        return;
+    }
+    try {
+        const response = await fetch('/api/export-evaluation-csv', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(window.bulkResultsData)
+        });
+        
+        if (!response.ok) throw new Error("Failed to generate CSV export");
+        
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Credivex_Evaluation_Results.csv';
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+    } catch (e) {
+        alert("Error exporting CSV: " + e.message);
+    }
+}

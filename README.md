@@ -22,7 +22,7 @@
 
 ### 🤖 ML Model
 - **Algorithm:** Support Vector Classifier (SVC) with RBF kernel
-- **Accuracy:** 89.8% ROC-AUC on held-out test set
+- **Accuracy:** 91.46% ROC-AUC on held-out test set
 - **Pipeline:** `StandardScaler` → `SVC(kernel='rbf', C=7.308, γ=0.8, probability=True)` → Platt Scaling
 - **Support Vectors:** 15,003 (Class 0: 7,440 | Class 1: 7,563)
 - Evaluates **6 financial dimensions** per applicant
@@ -32,7 +32,7 @@
   - Approval probability dial (doughnut chart)
   - Benchmark comparison bar chart
   - Risk diagnostic checklist
-- **Bulk Upload (CSV/Excel)** — evaluate hundreds of applicants at once with a live progress bar and downloadable results table
+- **Bulk Upload (CSV/Excel)** — evaluate hundreds of applicants at once using drag-and-drop, with a live progress bar and downloadable results table
 
 ### 📊 Visual Analytics Dashboard *(new)*
 - Automatically populated after a bulk upload
@@ -40,6 +40,13 @@
 - **Scatter Plot** — Debt-to-Income Ratio vs Credit Score (FICO), colour-coded by model decision (green = Approved, red = Denied)
 - **Bar Chart** — Approval rate % grouped by years-employed bracket (0–2, 3–5, 6–10, 11–20, 21+ years)
 - **Histogram** — Loan amount distribution split by approved vs denied across monetary bands
+
+### 📥 Download Analytics & Visual Reports *(new)*
+- Centralized downloads hub for all generated reports and artifacts
+- Download **Excel Reports** with raw data and native Excel charts
+- Download **PowerPoint Presentations** with executive summaries and CREDIVEX branding
+- Download **Raw Evaluation Data** in CSV format
+- Download developer models (`.pkl`) and Jupyter notebooks (`.ipynb`)
 
 ### 🛠️ Developer & SDK Page
 - Live model telemetry pulled from REST API
