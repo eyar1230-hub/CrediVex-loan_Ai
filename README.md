@@ -1,6 +1,6 @@
 # 🏦 CrediVex — AI Loan Underwriting Engine
 >### link for the credited web site:
->#### https://credivexloan.onrender.com/#page-evaluation
+>#### https://credivex-loan.onrender.com
 
 > **An interactive, full-stack loan approval platform powered by a Support Vector Classifier (SVC) with an RBF kernel, built with Flask + Vanilla JS.**
 > CrediVex simulates an automated underwriting desk: applicants (or entire portfolios) go in, a calibrated probability of default comes out, and that probability drives an approve/reject decision, a risk tier, live analytics, and exportable reports.
