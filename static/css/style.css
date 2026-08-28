@@ -1074,3 +1074,58 @@ body {
 .icon-box-visual   { background-color: #fef08a; color: #ca8a04; }
 .icon-box-dev      { background-color: #ede9fe; color: #7c3aed; }
 
+
+
+/* --- MOBILE RESPONSIVE FIXES --- */
+
+/* Fix: Visual Analytics navigation buttons */
+.va-nav-buttons {
+    display: flex;
+    gap: 10px;
+}
+@media (max-width: 768px) {
+    .va-nav-buttons {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+    .va-nav-buttons .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Fix: Page titles alignment on mobile (Developer & SDK, Visual Analytics) */
+@media (max-width: 768px) {
+    .page-title-wrap {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 12px;
+    }
+}
+
+/* Fix: Evaluation Hub massive table sticky header */
+.bulk-results-table-wrapper {
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 60vh; /* Allow vertical scrolling within the table area */
+    margin-top: 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+}
+.bulk-results-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    margin-top: 0;
+}
+.bulk-results-table thead th {
+    position: sticky;
+    top: 0;
+    background-color: #f8fafc; /* slightly off-white for contrast */
+    z-index: 10;
+    border-bottom: 2px solid #e2e8f0;
+    box-shadow: 0 2px 4px -2px rgba(0,0,0,0.1);
+}
+
+ @ m e d i a   ( m a x - w i d t h :   7 6 8 p x )   {   . s n i p p e t - h e a d e r   {   f l e x - d i r e c t i o n :   c o l u m n ;   a l i g n - i t e m s :   f l e x - s t a r t ;   g a p :   1 2 p x ;   }   }  
+ 

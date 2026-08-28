@@ -526,10 +526,10 @@ df.to_csv('bulk_evaluation.csv', index=False)
                             </button>
                         </div>
                     </div>
-                    <div style="overflow-x: auto;">
-                        <table style="width: 100%; border-collapse: collapse; text-align: left; margin-top: 15px;">
-                            <thead>
-                                <tr style="border-bottom: 2px solid #eee;">
+                    <div class="bulk-results-table-wrapper">
+                          <table class="bulk-results-table">
+                              <thead>
+                                  <tr>
                                     <th style="padding: 10px;">Row</th>
                                     <th style="padding: 10px;">Income</th>
                                     <th style="padding: 10px;">Loan Amt</th>
@@ -563,8 +563,8 @@ df.to_csv('bulk_evaluation.csv', index=False)
                         </div>
                         <p>Visual summaries of your uploaded bulk evaluation ג€” analyzing SVC decision boundaries, employment tenure, and loan-amount risk distributions across the portfolio.</p>
                     </div>
-                    <div style="display: flex; gap: 10px;">
-                        <button class="btn btn-primary va-back-btn" onclick="switchPage('page-downloads')">
+                    <div class="va-nav-buttons">
+                          <button class="btn btn-primary va-back-btn" onclick="switchPage('page-downloads')">
                             <i class="fa-solid fa-download"></i> To Download Center
                         </button>
                         <button class="btn btn-outline va-back-btn" onclick="switchPage('page-evaluation')">
