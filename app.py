@@ -707,6 +707,27 @@ def api_download_notebook():
         )
     return jsonify({"error": "Notebook file not found on server."}), 404
 
+
+@app.route('/api/download-apk', methods=['GET'])
+def api_download_apk():
+    """
+    Allows downloading the CrediVex Android APK (mobile app).
+    Place the built APK at: <project_root>/credivex_mobile.apk
+    Build it from Project_Loan_mobile/ with: flet build apk
+    """
+    apk_path = os.path.join(BASE_DIR, 'credivex_mobile.apk')
+    if os.path.exists(apk_path):
+        return send_file(
+            apk_path,
+            as_attachment=True,
+            download_name='CrediVex_Mobile.apk',
+            mimetype='application/vnd.android.package-archive'
+        )
+    return jsonify({
+        "error": "APK not yet built. Run 'flet build apk' in Project_Loan_mobile/ and copy the output to this directory."
+    }), 404
+
+
 # 3. Server Entry Point
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
