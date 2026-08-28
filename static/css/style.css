@@ -347,9 +347,9 @@ body {
 .section-title p { font-size: 0.85rem; color: var(--text-muted); margin-top: 3px; }
 
 /* Grids */
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+.grid-2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-bottom: 24px; }
 
 /* ==========================================================================
    PAGE 1: OVERVIEW
@@ -701,7 +701,7 @@ body {
 .chart-note { font-size: 0.7rem; color: var(--text-muted); text-align: center; margin-top: 8px; font-style: italic; }
 
 .checklist-card h4 { font-size: 0.9rem; font-weight: 700; color: var(--text-heading); margin-bottom: 12px; }
-.checklist-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.checklist-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px; }
 .risk-check-item {
     background: #f8fafc; border: 1.5px solid var(--border-color);
     border-radius: var(--radius-sm); padding: 9px 14px;
@@ -841,12 +841,12 @@ body {
     .hero-grid,
     .eval-layout,
     .grid-2,
-    .charts-row    { grid-template-columns: 1fr; }
-    .grid-3        { grid-template-columns: 1fr 1fr; }
-    .grid-4        { grid-template-columns: 1fr 1fr; }
+    .charts-row    { grid-template-columns: minmax(0, 1fr); }
+    .grid-3        { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .grid-4        { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 
     /* VA Charts */
-    .va-charts-row { grid-template-columns: 1fr; }
+    .va-charts-row { grid-template-columns: minmax(0, 1fr); }
 
     /* Cards */
     .card { padding: 18px; }
@@ -938,7 +938,7 @@ body {
     /* ---- Grids ---- */
     .grid-3,
     .grid-4,
-    .checklist-grid { grid-template-columns: 1fr; }
+    .checklist-grid { grid-template-columns: minmax(0, 1fr); }
 
     /* ---- Hero ---- */
     .hero-text-card h1 { font-size: 1.45rem; }
@@ -956,14 +956,14 @@ body {
 
     /* ---- Charts ---- */
     .chart-canvas-wrap  { height: 180px; }
-    .charts-row         { grid-template-columns: 1fr; gap: 14px; }
+    .charts-row         { grid-template-columns: minmax(0, 1fr); gap: 14px; }
 
     /* ---- VA page ---- */
     .va-header-row  { flex-direction: column; align-items: flex-start; gap: 12px; }
     .va-back-btn    { width: 100%; justify-content: center; }
     .va-canvas-wrap { height: 220px; }
     .va-canvas-wide { height: 200px; }
-    .va-kpi-strip   { grid-template-columns: 1fr 1fr; }
+    .va-kpi-strip   { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
 
     /* ---- Verdict ---- */
     .verdict-metrics { flex-wrap: wrap; gap: 10px; }
@@ -978,7 +978,7 @@ body {
     .btn-preset     { font-size: 0.78rem; padding: 7px 11px; }
 
     /* ---- Guide grid ---- */
-    .guide-grid { grid-template-columns: 1fr; }
+    .guide-grid { grid-template-columns: minmax(0, 1fr); }
 
     /* ---- Snippet tabs ---- */
     .tab-buttons { flex-wrap: wrap; gap: 4px; }
@@ -1007,7 +1007,7 @@ body {
     .va-canvas-wide     { height: 190px; }
 
     /* KPI strip stacks to single column */
-    .va-kpi-strip { grid-template-columns: 1fr; }
+    .va-kpi-strip { grid-template-columns: minmax(0, 1fr); }
     .va-kpi-value { font-size: 1.5rem; }
 
     /* Verdict pill wraps */
@@ -1133,5 +1133,11 @@ body {
 
  / *   F i x :   P r e v e n t   g r i d / f l e x   c h i l d r e n   f r o m   b l o w i n g   o u t   v i e w p o r t   w i d t h   * / 
  . g r i d - 2   >   * ,   . g r i d - 3   >   * ,   . g r i d - 4   >   * ,   . c a r d   {   m i n - w i d t h :   0 ;   } 
- i m g ,   p r e ,   c o d e ,   . s n i p p e t - b o x   {   m a x - w i d t h :   1 0 0 % ;   }  
+ i m g ,   p r e ,   c o d e ,   . s n i p p e t - b o x   {   m a x - w i d t h :   1 0 0 % ;   } 
+ 
+ 
+.snippet-box { width: 100%; box-sizing: border-box; }
+
+ b o d y ,   h t m l   {   o v e r f l o w - x :   h i d d e n ;   m a x - w i d t h :   1 0 0 v w ;   } 
+ . m a i n - c o n t a i n e r   {   o v e r f l o w - x :   h i d d e n ;   w i d t h :   1 0 0 % ;   }  
  
